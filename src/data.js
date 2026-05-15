@@ -21,7 +21,7 @@ window.ARTWORKS = [
     description: 'A staged invocation of the queen of the gods. Costume, light, and animal companion compose a single image that feels less photographed than remembered — myth made physical.',
     descriptionAr: 'استدعاء مسرحي لملكة الآلهة. تتآلف الأزياء والضوء والرفيق الحيواني في صورة واحدة لا تبدو ملتقطة بقدر ما تبدو متذكَّرة — أسطورة تتجسد.',
     editionSize: 5, editionsSold: 0, category: 'portrait', featured: true, number: 'OE-001',
-    landscape: true, fit: 'contain',
+    landscape: true, fit: 'contain', aspectRatio: '10 / 7',
     prices: RARE_PRICES, framedPrices: RARE_FRAMED,
   },
   {
@@ -33,7 +33,7 @@ window.ARTWORKS = [
     description: 'Drawn from folklore that crosses every culture — the woman who is also a swan. Hossam stages the story as a portrait, the bird neither prop nor pet but the maiden\'s second self.',
     descriptionAr: 'مستوحاة من حكاية شعبية تتكرر في كل الثقافات — المرأة التي هي أيضاً بجعة. تخرج هوسام القصة كصورة شخصية، حيث الطائر ليس أداةً ولا أليفاً بل النصف الآخر للفتاة.',
     editionSize: 10, editionsSold: 1, category: 'portrait', featured: true, number: 'OE-002',
-    fit: 'contain',
+    fit: 'contain', aspectRatio: '7 / 10',
     prices: STD_PRICES, framedPrices: STD_FRAMED,
   },
   {
@@ -45,7 +45,7 @@ window.ARTWORKS = [
     description: 'A fox, a child, a quiet pact between them. Hossam draws on the French fable tradition to compose a scene that is intimate, theatrical, and a little uncanny — the natural world meeting the imagined one.',
     descriptionAr: 'ثعلب، وطفلة، وميثاق صامت بينهما. تستلهم هوسام تقليد الحكاية الفرنسية لتؤلف مشهداً حميمياً ومسرحياً وغرائبياً قليلاً — حيث يلتقي العالم الطبيعي بالعالم المتخيَّل.',
     editionSize: 10, editionsSold: 0, category: 'portrait', featured: true, number: 'OE-003',
-    fit: 'contain',
+    fit: 'contain', aspectRatio: '7 / 10',
     prices: STD_PRICES, framedPrices: STD_FRAMED,
   },
 

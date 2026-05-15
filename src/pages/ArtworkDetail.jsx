@@ -233,7 +233,7 @@ function ArtworkDetailPage({ navigate, params = {}, addToCart, tweaks = {}, lang
                 <button onClick={handleAddToCart} style={{ background: added ? 'rgba(196,163,85,0.15)' : '#c4a355', color: added ? '#c4a355' : '#1b1916', border: added ? '1px solid #c4a355' : 'none', cursor: 'pointer', padding: '16px', fontFamily: bodyFont, fontSize: '11px', letterSpacing: isAr ? 0 : '0.18em', textTransform: isAr ? 'none' : 'uppercase', fontWeight: 500, transition: 'all 0.3s' }}>
                   {added ? (isAr ? '✓ تمت الإضافة' : '✓ Added to Selection') : (isAr ? 'أضف إلى الاختيار' : 'Add to Selection')}
                 </button>
-                <a href={`https://api.whatsapp.com/send?phone=201001161776?text=${waMessage()}`} target="_blank" rel="noopener noreferrer" style={{ display: 'block', textAlign: 'center', padding: '14px', background: 'transparent', border: '1px solid rgba(240,234,216,0.15)', color: 'rgba(240,234,216,0.6)', fontFamily: bodyFont, fontSize: '11px', letterSpacing: isAr ? 0 : '0.15em', textTransform: isAr ? 'none' : 'uppercase', textDecoration: 'none' }}>
+                <a href={`https://api.whatsapp.com/send?phone=201001161776&text=${waMessage()}`} target="_blank" rel="noopener noreferrer" style={{ display: 'block', textAlign: 'center', padding: '14px', background: 'transparent', border: '1px solid rgba(240,234,216,0.15)', color: 'rgba(240,234,216,0.6)', fontFamily: bodyFont, fontSize: '11px', letterSpacing: isAr ? 0 : '0.15em', textTransform: isAr ? 'none' : 'uppercase', textDecoration: 'none' }}>
                   {isAr ? 'استفسر عبر واتساب' : 'Enquire via WhatsApp'}
                 </a>
                 {isRare && (

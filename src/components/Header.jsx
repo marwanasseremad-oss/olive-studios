@@ -66,10 +66,24 @@ function Header({ navigate, cartCount, onCartOpen, lang, setLang }) {
         ]},
       ],
     },
-    { label: isAr ? 'من نحن' : 'About', page: 'about' },
+    {
+      label: isAr ? 'من نحن' : 'About',
+      sections: [
+        { title: isAr ? 'الاستوديو' : 'Olive Studios', links: [
+          { label: isAr ? 'قصتنا' : 'Our Story', page: 'about' },
+          { label: isAr ? 'سياسة الخصوصية' : 'Privacy Policy', page: 'privacy' },
+          { label: isAr ? 'الشروط والأحكام' : 'Terms & Conditions', page: 'terms' },
+        ]},
+      ],
+    },
     {
       label: isAr ? 'اكتشف' : 'Discover',
       sections: [
+        { title: isAr ? 'الاستوديو' : 'The Studio', links: [
+          { label: isAr ? 'نجم الشهر' : 'Star of the Month', page: 'star-of-month' },
+          { label: isAr ? 'من الكواليس' : 'Behind the Scenes', page: 'behind-scenes' },
+          { label: isAr ? 'أدلّة' : 'Guides', page: 'guides' },
+        ]},
         { title: isAr ? 'الخدمات' : 'Services', links: [
           { label: isAr ? 'طلبات مخصصة' : 'Bespoke Inquiries', page: 'bespoke' },
           { label: isAr ? 'الشركات' : 'Corporate', page: 'corporate' },

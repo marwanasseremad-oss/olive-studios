@@ -89,14 +89,14 @@
 <body>
   <div id="root"></div>
 
-  <script src="src/data.js?v=3"></script>
-  <script src="src/translations.js?v=3"></script>
-  <script type="text/babel" src="src/pages/PageHelpers.jsx?v=3"></script>
-  <script type="text/babel" src="src/components/ProductCard.jsx?v=3"></script>
-  <script type="text/babel" src="src/components/Footer.jsx?v=3"></script>
-  <script type="text/babel" src="src/components/Header.jsx?v=3"></script>
-  <script type="text/babel" src="src/components/CartDrawer.jsx?v=3"></script>
-  <script type="text/babel" src="src/pages/Home.jsx?v=3"></script>
+  <script src="src/data.js?v=4"></script>
+  <script src="src/translations.js?v=4"></script>
+  <script type="text/babel" src="src/pages/PageHelpers.jsx?v=4"></script>
+  <script type="text/babel" src="src/components/ProductCard.jsx?v=4"></script>
+  <script type="text/babel" src="src/components/Footer.jsx?v=4"></script>
+  <script type="text/babel" src="src/components/Header.jsx?v=4"></script>
+  <script type="text/babel" src="src/components/CartDrawer.jsx?v=4"></script>
+  <script type="text/babel" src="src/pages/Home.jsx?v=4"></script>
   <script type="text/babel" src="src/pages/Collection.jsx?v=3"></script>
   <script type="text/babel" src="src/pages/About.jsx?v=3"></script>
   <script type="text/babel" src="src/pages/Artists.jsx?v=3"></script>
@@ -110,6 +110,9 @@
   <script type="text/babel" src="src/pages/Shipping.jsx?v=3"></script>
   <script type="text/babel" src="src/pages/Editions.jsx?v=3"></script>
   <script type="text/babel" src="src/pages/Care.jsx?v=3"></script>
+  <script type="text/babel" src="src/pages/Privacy.jsx?v=4"></script>
+  <script type="text/babel" src="src/pages/Terms.jsx?v=4"></script>
+  <script type="text/babel" src="src/pages/Studio.jsx?v=4"></script>
 
   <script type="text/babel">
     const TWEAK_DEFAULTS = {
@@ -180,6 +183,11 @@
         shipping: <ShippingPage {...pageProps} />,
         editions: <EditionsPage {...pageProps} />,
         care: <CarePage {...pageProps} />,
+        privacy: <PrivacyPage {...pageProps} />,
+        terms: <TermsPage {...pageProps} />,
+        'star-of-month': <StarOfMonthPage {...pageProps} />,
+        'behind-scenes': <BehindScenesPage {...pageProps} />,
+        guides: <GuidesPage {...pageProps} />,
         reviews: <CollectionPage {...pageProps} />
       };
 

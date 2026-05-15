@@ -82,8 +82,11 @@ function Footer({ navigate, lang = 'EN' }) {
         <div style={{ borderTop: '1px solid rgba(240,234,216,0.06)', paddingTop: '28px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
           <p style={{ fontFamily: "'Jost', sans-serif", fontSize: '11px', color: 'rgba(240,234,216,0.25)', margin: 0 }}>{t('footer.copyright')}</p>
           <div style={{ display: 'flex', gap: '24px' }}>
-            {[t('footer.privacy'), t('footer.terms')].map(l => (
-              <span key={l} style={{ fontFamily: "'Jost', sans-serif", fontSize: '11px', color: 'rgba(240,234,216,0.25)', cursor: 'pointer' }}>{l}</span>
+            {[{ label: t('footer.privacy'), page: 'privacy' }, { label: t('footer.terms'), page: 'terms' }].map(l => (
+              <span key={l.page} onClick={() => navigate(l.page)}
+                style={{ fontFamily: "'Jost', sans-serif", fontSize: '11px', color: 'rgba(240,234,216,0.25)', cursor: 'pointer', transition: 'color 0.2s' }}
+                onMouseEnter={e => e.currentTarget.style.color = 'rgba(240,234,216,0.5)'}
+                onMouseLeave={e => e.currentTarget.style.color = 'rgba(240,234,216,0.25)'}>{l.label}</span>
             ))}
           </div>
         </div>
