@@ -2,10 +2,12 @@
 function HomePage({ navigate, addToCart, tweaks = {}, lang = 'EN', currency = 'EGP' }) {
   const t = (key, vars) => T(key, lang, vars);
   const featured = window.ARTWORKS.filter(a => a.featured);
+  const [heroLoaded, setHeroLoaded] = React.useState(false);
   const [email, setEmail] = React.useState('');
   const [subscribed, setSubscribed] = React.useState(false);
   const isAr = lang === 'AR';
   const videoRef = React.useRef(null);
+  const [reducedMotion] = React.useState(() => typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 
   const C = { container: { maxWidth: '1360px', margin: '0 auto', padding: '0 clamp(20px,4vw,72px)' } };
 
@@ -14,12 +16,23 @@ function HomePage({ navigate, addToCart, tweaks = {}, lang = 'EN', currency = 'E
 
       {/* ── HERO ── */}
       <section style={{ position: 'relative', height: '100vh', minHeight: '600px', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', background: '#0f0d0a' }}>
-        <img
-          src={(window.__resources&&window.__resources.heroCairo)||'src/assets/hero-cairo.jpg'}
-          alt="Cairo, archival"
-          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', filter: 'sepia(0.28) saturate(0.82) contrast(1.08) brightness(0.9)' }}
-        />
-        {/* Standalone offline export ships the graded still only \u2014 no hero video file bundled, to keep this export under upload size limits. The live site plays the archival film loop. */}
+        {reducedMotion ? (
+          <img
+            src={(window.__resources&&window.__resources.heroCairo)||'src/assets/hero-cairo.jpg'}
+            alt="Cairo, archival"
+            onLoad={() => setHeroLoaded(true)}
+            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: heroLoaded ? 1 : 0, transition: 'opacity 1.2s ease', filter: 'sepia(0.28) saturate(0.82) contrast(1.08) brightness(0.9)' }}
+          />
+        ) : (
+          <video
+            ref={videoRef}
+            src={(window.__resources&&window.__resources.heroVideo)||'src/assets/hero-video.mp4'}
+            autoPlay loop muted playsInline preload="auto"
+            poster={(window.__resources&&window.__resources.heroCairo)||'src/assets/hero-cairo.jpg'}
+            onLoadedData={e => { setHeroLoaded(true); try { e.currentTarget.playbackRate = 0.82; } catch (err) {} }}
+            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: heroLoaded ? 1 : 0, transition: 'opacity 1.4s ease', transform: 'scale(1.18)', transformOrigin: 'center center' }}
+          />
+        )}
         {/* Warm sepia/gold wash — plain alpha compositing only, no filter/blend-mode cost */}
         <div style={{ position: 'absolute', inset: 0, background: 'rgba(184,132,66,0.16)' }} />
         {/* Vignette — darker at the edges so the frame reads as curated, not cropped */}
