@@ -1,12 +1,12 @@
 
 /* ── shared page helpers ── */
 const PAGE = {
-  wrap: (bg) => ({ background: bg || '#1b1916', color: '#f0ead8', paddingTop: '72px' }),
+  wrap: (bg) => ({ background: bg || '#1b1916', color: '#f0ead8', paddingTop: '108px' }),
   container: { maxWidth: '1100px', margin: '0 auto', padding: '0 clamp(20px,5vw,72px)' },
   section: (extra) => ({ padding: 'clamp(48px,7vw,96px) clamp(20px,5vw,72px)', maxWidth: '1100px', margin: '0 auto', ...extra }),
   heading: { fontFamily: "'Cormorant Garamond', serif", fontWeight: 300 },
   label: { fontFamily: "'Jost', sans-serif", fontSize: '10px', letterSpacing: '0.22em', textTransform: 'uppercase', color: 'rgba(196,163,85,0.8)', marginBottom: '16px', display: 'block' },
-  body: { fontFamily: "'Jost', sans-serif", fontSize: '14px', color: 'rgba(240,234,216,0.5)', lineHeight: 1.85, fontWeight: 300 },
+  body: { fontFamily: "'Jost', sans-serif", fontSize: '14px', color: 'rgba(240,234,216,0.58)', lineHeight: 1.85, fontWeight: 300 },
   h1: { fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(36px,5vw,72px)', fontWeight: 300, margin: '0 0 24px', letterSpacing: '-0.01em' },
   h2: { fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(24px,3vw,40px)', fontWeight: 300, margin: '0 0 20px' },
   divider: { height: '1px', background: 'rgba(240,234,216,0.07)', margin: '0' },

@@ -46,6 +46,9 @@
 
     .desktop-nav { display: flex !important; }
     .mobile-menu-btn { display: none !important; }
+    @media (max-width: 1180px) {
+      .logo-wordmark { display: none !important; }
+    }
     @media (max-width: 900px) {
       .desktop-nav { display: none !important; }
       .mobile-menu-btn { display: flex !important; }
@@ -66,8 +69,13 @@
     input::placeholder, textarea::placeholder { color: rgba(240,234,216,0.3); }
     input, textarea, select { color-scheme: dark; }
 
+    @media (max-width: 520px) {
+      .concierge-label { display: none !important; }
+      .concierge-fab { padding: 10px !important; }
+    }
+
     #tweaks-panel {
-      position: fixed; bottom: 24px; left: 24px; z-index: 500;
+      position: fixed; bottom: 24px; right: 24px; z-index: 500;
       background: #1e1c18; border: 1px solid rgba(240,234,216,0.12);
       padding: 20px 24px; min-width: 240px;
       box-shadow: 0 16px 48px rgba(0,0,0,0.6);
@@ -89,42 +97,49 @@
 <body>
   <div id="root"></div>
 
-  <script src="src/data.js?v=4"></script>
-  <script src="src/translations.js?v=4"></script>
-  <script type="text/babel" src="src/pages/PageHelpers.jsx?v=4"></script>
-  <script type="text/babel" src="src/components/ProductCard.jsx?v=4"></script>
-  <script type="text/babel" src="src/components/Footer.jsx?v=4"></script>
-  <script type="text/babel" src="src/components/Header.jsx?v=4"></script>
-  <script type="text/babel" src="src/components/CartDrawer.jsx?v=4"></script>
-  <script type="text/babel" src="src/pages/Home.jsx?v=4"></script>
-  <script type="text/babel" src="src/pages/Collection.jsx?v=3"></script>
-  <script type="text/babel" src="src/pages/About.jsx?v=3"></script>
-  <script type="text/babel" src="src/pages/Artists.jsx?v=3"></script>
-  <script type="text/babel" src="src/pages/ArtworkDetail.jsx?v=3"></script>
-  <script type="text/babel" src="src/pages/Contact.jsx?v=3"></script>
-  <script type="text/babel" src="src/pages/FAQ.jsx?v=3"></script>
-  <script type="text/babel" src="src/pages/Bespoke.jsx?v=3"></script>
-  <script type="text/babel" src="src/pages/Corporate.jsx?v=3"></script>
-  <script type="text/babel" src="src/pages/Collectors.jsx?v=3"></script>
-  <script type="text/babel" src="src/pages/PrintQuality.jsx?v=3"></script>
-  <script type="text/babel" src="src/pages/Shipping.jsx?v=3"></script>
-  <script type="text/babel" src="src/pages/Editions.jsx?v=3"></script>
-  <script type="text/babel" src="src/pages/Care.jsx?v=3"></script>
-  <script type="text/babel" src="src/pages/Privacy.jsx?v=4"></script>
-  <script type="text/babel" src="src/pages/Terms.jsx?v=4"></script>
-  <script type="text/babel" src="src/pages/Studio.jsx?v=4"></script>
+  <script src="src/data.js?v=5"></script>
+  <script src="src/translations.js?v=5"></script>
+  <script type="text/babel" src="src/pages/PageHelpers.jsx?v=5"></script>
+  <script type="text/babel" src="src/components/ProductCard.jsx?v=5"></script>
+  <script type="text/babel" src="src/components/Footer.jsx?v=5"></script>
+  <script type="text/babel" src="src/components/Header.jsx?v=5"></script>
+  <script type="text/babel" src="src/components/CartDrawer.jsx?v=5"></script>
+  <script type="text/babel" src="src/pages/Home.jsx?v=5"></script>
+  <script type="text/babel" src="src/pages/Collection.jsx?v=5"></script>
+  <script type="text/babel" src="src/pages/About.jsx?v=5"></script>
+  <script type="text/babel" src="src/pages/Artists.jsx?v=5"></script>
+  <script type="text/babel" src="src/pages/ArtworkDetail.jsx?v=5"></script>
+  <script type="text/babel" src="src/pages/Contact.jsx?v=5"></script>
+  <script type="text/babel" src="src/pages/FAQ.jsx?v=5"></script>
+  <script type="text/babel" src="src/pages/Bespoke.jsx?v=5"></script>
+  <script type="text/babel" src="src/pages/Corporate.jsx?v=5"></script>
+  <script type="text/babel" src="src/pages/Collectors.jsx?v=5"></script>
+  <script type="text/babel" src="src/pages/PrintQuality.jsx?v=5"></script>
+  <script type="text/babel" src="src/pages/Shipping.jsx?v=5"></script>
+  <script type="text/babel" src="src/pages/Editions.jsx?v=5"></script>
+  <script type="text/babel" src="src/pages/Care.jsx?v=5"></script>
+  <script type="text/babel" src="src/pages/Privacy.jsx?v=5"></script>
+  <script type="text/babel" src="src/pages/Terms.jsx?v=5"></script>
+  <script type="text/babel" src="src/pages/Studio.jsx?v=5"></script>
+  <script type="text/babel" src="src/pages/Cart.jsx?v=5"></script>
+  <script type="text/babel" src="src/pages/Checkout.jsx?v=5"></script>
+  <script type="text/babel" src="src/pages/ThankYou.jsx?v=5"></script>
+  <script type="text/babel" src="src/pages/HowItWorks.jsx?v=5"></script>
 
   <script type="text/babel">
-    const TWEAK_DEFAULTS = {
+    const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
       "accentColor": "#c4a355",
       "bgColor": "#1b1916",
       "headingFont": "Cormorant Garamond"
-    };
+    }/*EDITMODE-END*/;
 
     function App() {
       const [page, setPage] = React.useState(() => localStorage.getItem('olive_page') || 'home');
       const [params, setParams] = React.useState(() => { try { return JSON.parse(localStorage.getItem('olive_params') || '{}'); } catch { return {}; } });
-      const [cart, setCart] = React.useState([]);
+      const [cart, setCart] = React.useState(() => { try { return JSON.parse(localStorage.getItem('olive_cart') || '[]'); } catch { return []; } });
+      const [region, setRegion] = React.useState(() => localStorage.getItem('olive_region') || 'egypt');
+      const [currency, setCurrency] = React.useState(() => localStorage.getItem('olive_currency') || 'EGP');
+      const [lastOrder, setLastOrder] = React.useState(() => { try { return JSON.parse(localStorage.getItem('olive_last_order') || 'null'); } catch { return null; } });
       const [cartOpen, setCartOpen] = React.useState(false);
       const [tweaks, setTweaks] = React.useState(TWEAK_DEFAULTS);
       const [tweaksPanelOpen, setTweaksPanelOpen] = React.useState(false);
@@ -140,6 +155,7 @@
         return () => window.removeEventListener('message', handler);
       }, []);
 
+      // Apply lang direction
       React.useEffect(() => {
         document.documentElement.dir = lang === 'AR' ? 'rtl' : 'ltr';
         document.documentElement.lang = lang === 'AR' ? 'ar' : 'en';
@@ -164,8 +180,27 @@
         setCartOpen(true);
       };
       const removeFromCart = (i) => setCart(c => c.filter((_, idx) => idx !== i));
+      const updateCartItem = (index, patch) => setCart(c => c.map((it, i) => {
+        if (i !== index) return it;
+        const next = { ...it, ...patch };
+        const art = window.ARTWORKS.find(a => a.id === next.artworkId);
+        if (art) next.price = window.priceFor(art, next.size, next.framed);
+        if (!next.framed) next.frameColor = null;
+        return next;
+      }));
+      const placeOrder = (details) => {
+        const order = { ...details, confirmation: 'OS-' + Date.now().toString().slice(-6), date: new Date().toISOString() };
+        setLastOrder(order);
+        localStorage.setItem('olive_last_order', JSON.stringify(order));
+        setCart([]);
+        navigate('thankyou');
+      };
 
-      const pageProps = { navigate, addToCart, tweaks: { bg: tweaks.bgColor }, lang };
+      React.useEffect(() => { localStorage.setItem('olive_cart', JSON.stringify(cart)); }, [cart]);
+      React.useEffect(() => { localStorage.setItem('olive_region', region); }, [region]);
+      React.useEffect(() => { localStorage.setItem('olive_currency', currency); }, [currency]);
+
+      const pageProps = { navigate, addToCart, tweaks: { bg: tweaks.bgColor }, lang, currency };
 
       const pages = {
         home: <HomePage {...pageProps} />,
@@ -188,7 +223,11 @@
         'star-of-month': <StarOfMonthPage {...pageProps} />,
         'behind-scenes': <BehindScenesPage {...pageProps} />,
         guides: <GuidesPage {...pageProps} />,
-        reviews: <CollectionPage {...pageProps} />
+        reviews: <CollectionPage {...pageProps} />,
+        cart: <CartPage {...pageProps} cart={cart} updateCartItem={updateCartItem} removeFromCart={removeFromCart} region={region} setRegion={setRegion} />,
+        checkout: <CheckoutPage {...pageProps} cart={cart} region={region} setRegion={setRegion} placeOrder={placeOrder} />,
+        thankyou: <ThankYouPage {...pageProps} order={lastOrder} />,
+        howitworks: <HowItWorksPage {...pageProps} />
       };
 
       return (
@@ -199,38 +238,45 @@
             onCartOpen={() => setCartOpen(true)}
             lang={lang}
             setLang={setLang}
+            currency={currency}
+            setCurrency={setCurrency}
           />
           <main>{pages[page] || pages.home}</main>
           <Footer navigate={navigate} lang={lang} />
 
           {cartOpen && (
-            <CartDrawer cart={cart} onClose={() => setCartOpen(false)} onRemove={removeFromCart} lang={lang} />
+            <CartDrawer cart={cart} onClose={() => setCartOpen(false)} onRemove={removeFromCart} navigate={navigate} lang={lang} currency={currency} />
           )}
 
-          {/* WhatsApp Floating Button */}
+          {/* Persistent concierge — refined, tasteful, brand palette */}
           <a
-            href="https://api.whatsapp.com/send?phone=201001161776"
+            href={`https://wa.me/${window.CURATOR_WA}`}
             target="_blank"
             rel="noopener noreferrer"
+            className="concierge-fab"
             style={{
-              position: 'fixed', bottom: '28px', right: '28px', zIndex: 300,
-              display: 'flex', alignItems: 'center', gap: '10px',
-              background: '#25D366', color: '#fff',
-              padding: '12px 20px 12px 16px',
-              borderRadius: '50px',
-              boxShadow: '0 4px 24px rgba(37,211,102,0.35)',
-              fontFamily: "'Jost', sans-serif", fontSize: '12px',
-              letterSpacing: '0.08em', textTransform: 'uppercase',
-              textDecoration: 'none', fontWeight: 500,
-              transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+              position: 'fixed', bottom: '24px', right: '24px', zIndex: 150,
+              display: 'flex', alignItems: 'center', gap: '11px',
+              background: 'rgba(30,28,24,0.92)',
+              backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)',
+              border: '1px solid rgba(196,163,85,0.35)',
+              padding: '10px 18px 10px 11px', borderRadius: '40px',
+              boxShadow: '0 10px 34px rgba(0,0,0,0.42)',
+              textDecoration: 'none',
+              transition: 'transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease',
             }}
-            onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 8px 32px rgba(37,211,102,0.45)'; }}
-            onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 24px rgba(37,211,102,0.35)'; }}
+            onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.borderColor = 'rgba(196,163,85,0.7)'; e.currentTarget.style.boxShadow = '0 14px 40px rgba(0,0,0,0.5)'; }}
+            onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.borderColor = 'rgba(196,163,85,0.35)'; e.currentTarget.style.boxShadow = '0 10px 34px rgba(0,0,0,0.42)'; }}
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-            </svg>
-            {lang === 'AR' ? 'واتساب' : 'WhatsApp Concierge'}
+            <span style={{ width: 32, height: 32, borderRadius: '50%', background: '#c4a355', color: '#1b1916', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+              </svg>
+            </span>
+            <span className="concierge-label" style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.2 }}>
+              <span style={{ fontFamily: "'Jost', sans-serif", fontSize: '12.5px', letterSpacing: '0.02em', color: '#f0ead8' }}>{lang === 'AR' ? 'تحدّث مع أمين المجموعة' : 'Chat with a curator'}</span>
+              <span style={{ fontFamily: "'Jost', sans-serif", fontSize: '9px', letterSpacing: lang === 'AR' ? 0 : '0.14em', textTransform: lang === 'AR' ? 'none' : 'uppercase', color: 'rgba(196,163,85,0.8)' }}>{lang === 'AR' ? '١٠ص–٨م بتوقيت القاهرة' : '10am–8pm Cairo'}</span>
+            </span>
           </a>
 
           <div id="tweaks-panel" className={tweaksPanelOpen ? 'open' : ''}>

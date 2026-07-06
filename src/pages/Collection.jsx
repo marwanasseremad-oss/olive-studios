@@ -1,5 +1,5 @@
 
-function CollectionPage({ navigate, tweaks = {}, lang = 'EN', params = {} }) {
+function CollectionPage({ navigate, tweaks = {}, lang = 'EN', params = {}, currency = 'EGP' }) {
   const t = (key, vars) => T(key, lang, vars);
   const isAr = lang === 'AR';
   const [filter, setFilter] = React.useState(params.filter || 'all');
@@ -37,7 +37,7 @@ function CollectionPage({ navigate, tweaks = {}, lang = 'EN', params = {} }) {
   const C = { container: { maxWidth: '1360px', margin: '0 auto', padding: '0 clamp(20px,4vw,72px)' } };
 
   return (
-    <div style={{ background: tweaks.bg || '#1b1916', color: '#f0ead8', paddingTop: '72px' }}>
+    <div style={{ background: tweaks.bg || '#1b1916', color: '#f0ead8', paddingTop: '108px' }}>
 
       {/* Page header */}
       <div style={{ ...C.container, padding: 'clamp(48px,7vw,96px) clamp(20px,4vw,72px) clamp(24px,3vw,40px)' }}>
@@ -51,7 +51,7 @@ function CollectionPage({ navigate, tweaks = {}, lang = 'EN', params = {} }) {
           <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(36px,5.5vw,72px)', fontWeight: 300, margin: '0 0 16px' }}>
             {isAr ? 'المجموعة' : 'The Collection'}
           </h1>
-          <p style={{ fontFamily: isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif", fontSize: '14px', color: 'rgba(240,234,216,0.4)', maxWidth: '520px', lineHeight: 1.8, margin: 0, fontWeight: 300 }}>
+          <p style={{ fontFamily: isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif", fontSize: '14px', color: 'rgba(240,234,216,0.58)', maxWidth: '520px', lineHeight: 1.8, margin: 0, fontWeight: 300 }}>
             {isAr
               ? '١٠ أعمال. ٥ مصورين مصريين. إصدارات ثابتة — حين تنتهي، لن تُعاد.'
               : '10 works. 5 Egyptian photographers. Fixed editions — when they\'re gone, they\'re gone.'}
@@ -70,7 +70,7 @@ function CollectionPage({ navigate, tweaks = {}, lang = 'EN', params = {} }) {
               textTransform: isAr ? 'none' : 'uppercase',
               color: filter === cat
                 ? (cat === 'rare' ? '#c4a355' : '#f0ead8')
-                : 'rgba(240,234,216,0.35)',
+                : 'rgba(240,234,216,0.55)',
               padding: '12px 18px 14px',
               borderBottom: filter === cat
                 ? `1px solid ${cat === 'rare' ? '#c4a355' : '#f0ead8'}`
@@ -82,7 +82,7 @@ function CollectionPage({ navigate, tweaks = {}, lang = 'EN', params = {} }) {
             </button>
           ))}
           <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', paddingRight: '4px', flexShrink: 0 }}>
-            <span style={{ fontFamily: isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif", fontSize: '11px', color: 'rgba(240,234,216,0.2)' }}>
+            <span style={{ fontFamily: isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif", fontSize: '11px', color: 'rgba(240,234,216,0.45)' }}>
               {filtered.length} {isAr ? 'عمل' : 'works'}
             </span>
           </div>
@@ -104,7 +104,7 @@ function CollectionPage({ navigate, tweaks = {}, lang = 'EN', params = {} }) {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 'clamp(24px,3vw,48px)' }}>
               {rareWorks.map((artwork, i) => (
                 <FadeUp key={artwork.id} delay={i * 0.1}>
-                  <ProductCard artwork={artwork} onNavigate={navigate} lang={lang} />
+                  <ProductCard artwork={artwork} onNavigate={navigate} lang={lang} currency={currency} />
                 </FadeUp>
               ))}
             </div>
@@ -124,7 +124,7 @@ function CollectionPage({ navigate, tweaks = {}, lang = 'EN', params = {} }) {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 'clamp(24px,3vw,48px)' }}>
           {(showRareSection ? stdWorks : filtered).map((artwork, i) => (
             <FadeUp key={artwork.id} delay={Math.min(i * 0.06, 0.3)}>
-              <ProductCard artwork={artwork} onNavigate={navigate} lang={lang} />
+              <ProductCard artwork={artwork} onNavigate={navigate} lang={lang} currency={currency} />
             </FadeUp>
           ))}
         </div>
@@ -139,7 +139,7 @@ function CollectionPage({ navigate, tweaks = {}, lang = 'EN', params = {} }) {
           <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(22px,3vw,36px)', fontWeight: 300, margin: '0 0 16px' }}>
             {isAr ? 'الندرة حقيقية، لا تسويقية.' : 'Scarcity is real, not marketed.'}
           </h2>
-          <p style={{ fontFamily: isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif", fontSize: '13px', color: 'rgba(240,234,216,0.4)', margin: '0 auto 32px', lineHeight: 1.8, maxWidth: '480px', fontWeight: 300 }}>
+          <p style={{ fontFamily: isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif", fontSize: '13px', color: 'rgba(240,234,216,0.56)', margin: '0 auto 32px', lineHeight: 1.8, maxWidth: '480px', fontWeight: 300 }}>
             {isAr
               ? 'حين يُباع آخر إصدار من أي عمل، لن يُطبع مرة أخرى. أبداً.'
               : 'When the last copy of any work sells, it will never be printed again. Ever.'}

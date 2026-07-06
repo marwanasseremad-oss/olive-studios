@@ -11,7 +11,7 @@ function ContactPage({ navigate, tweaks = {}, lang = 'EN' }) {
       intro: 'Questions about a piece? Need help choosing the right size? Our concierge is here to assist.',
       infoTitle: 'Contact Information',
       cards: [
-        { icon: <Icon.WA />, title: 'WhatsApp Concierge', sub: 'Fastest response. Available 10am–8pm Cairo time.', detail: '+20 100 116 1776', href: 'https://api.whatsapp.com/send?phone=201001161776' },
+        { icon: <Icon.WA />, title: 'WhatsApp Concierge', sub: 'Fastest response. Available 10am–8pm Cairo time.', detail: '+20 123 456 7890', href: 'https://wa.me/+201234567890' },
         { icon: <Icon.Mail />, title: 'Email', sub: 'For detailed inquiries and documentation.', detail: 'hello@olivestudios.com', href: 'mailto:hello@olivestudios.com' },
         { icon: <Icon.IG />, title: 'Instagram', sub: 'Follow for new releases and behind-the-scenes.', detail: '@_olivestudios', href: 'https://www.instagram.com/_olivestudios/' },
         { icon: <Icon.MapPin />, title: 'Location', sub: 'Cairo, Egypt', detail: 'By appointment only', href: null },
@@ -24,7 +24,7 @@ function ContactPage({ navigate, tweaks = {}, lang = 'EN' }) {
       intro: 'لديك سؤال عن قطعة؟ تحتاج مساعدة في اختيار الحجم المناسب؟ فريقنا هنا لمساعدتك.',
       infoTitle: 'معلومات التواصل',
       cards: [
-        { icon: <Icon.WA />, title: 'واتساب', sub: 'أسرع وسيلة للرد. متاح ١٠ص–٨م بتوقيت القاهرة.', detail: '+20 100 116 1776', href: 'https://api.whatsapp.com/send?phone=201001161776' },
+        { icon: <Icon.WA />, title: 'واتساب', sub: 'أسرع وسيلة للرد. متاح ١٠ص–٨م بتوقيت القاهرة.', detail: '+20 123 456 7890', href: 'https://wa.me/+201234567890' },
         { icon: <Icon.Mail />, title: 'البريد الإلكتروني', sub: 'للاستفسارات المفصلة والوثائق.', detail: 'hello@olivestudios.com', href: 'mailto:hello@olivestudios.com' },
         { icon: <Icon.IG />, title: 'إنستغرام', sub: 'تابعنا للإصدارات الجديدة وكواليس الاستوديو.', detail: '@_olivestudios', href: 'https://www.instagram.com/_olivestudios/' },
         { icon: <Icon.MapPin />, title: 'الموقع', sub: 'القاهرة، مصر', detail: 'بموعد مسبق فقط', href: null },

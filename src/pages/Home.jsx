@@ -1,11 +1,11 @@
 
-function HomePage({ navigate, addToCart, tweaks = {}, lang = 'EN' }) {
+function HomePage({ navigate, addToCart, tweaks = {}, lang = 'EN', currency = 'EGP' }) {
   const t = (key, vars) => T(key, lang, vars);
   const featured = window.ARTWORKS.filter(a => a.featured);
-  const [heroLoaded, setHeroLoaded] = React.useState(false);
   const [email, setEmail] = React.useState('');
   const [subscribed, setSubscribed] = React.useState(false);
   const isAr = lang === 'AR';
+  const videoRef = React.useRef(null);
 
   const C = { container: { maxWidth: '1360px', margin: '0 auto', padding: '0 clamp(20px,4vw,72px)' } };
 
@@ -13,15 +13,20 @@ function HomePage({ navigate, addToCart, tweaks = {}, lang = 'EN' }) {
     <div style={{ background: tweaks.bg || '#1b1916', color: '#f0ead8' }}>
 
       {/* ── HERO ── */}
-      <section style={{ position: 'relative', height: '100vh', minHeight: '600px', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
-        <video
-          src={(window.__resources&&window.__resources.heroVideo)||'src/assets/hero-video.mp4'}
-          autoPlay loop muted playsInline
-          poster={(window.__resources&&window.__resources.heroCairo)||'src/assets/hero-cairo.jpg'}
-          onLoadedData={() => setHeroLoaded(true)}
-          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: heroLoaded ? 1 : 0, transition: 'opacity 1.2s ease', transform: 'scale(1.18)', transformOrigin: 'center center' }}
+      <section style={{ position: 'relative', height: '100vh', minHeight: '600px', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', background: '#0f0d0a' }}>
+        <img
+          src={(window.__resources&&window.__resources.heroCairo)||'src/assets/hero-cairo.jpg'}
+          alt="Cairo, archival"
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', filter: 'sepia(0.28) saturate(0.82) contrast(1.08) brightness(0.9)' }}
         />
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(27,25,22,0.35) 0%, rgba(27,25,22,0.6) 60%, rgba(27,25,22,0.85) 100%)' }} />
+        {/* Standalone offline export ships the graded still only \u2014 no hero video file bundled, to keep this export under upload size limits. The live site plays the archival film loop. */}
+        {/* Warm sepia/gold wash — plain alpha compositing only, no filter/blend-mode cost */}
+        <div style={{ position: 'absolute', inset: 0, background: 'rgba(184,132,66,0.16)' }} />
+        {/* Vignette — darker at the edges so the frame reads as curated, not cropped */}
+        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at center, transparent 38%, rgba(12,10,8,0.62) 100%)' }} />
+        {/* Scrim — graduated dark base plus a soft pool behind the type for legibility at every frame */}
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(20,17,13,0.4) 0%, rgba(18,16,12,0.5) 55%, rgba(15,13,10,0.88) 100%)' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 62% 48% at 50% 44%, rgba(12,10,8,0.5), transparent 72%)' }} />
         <div style={{ position: 'relative', textAlign: 'center', padding: '0 24px', maxWidth: '860px' }}>
           <p style={{ fontFamily: "'Jost', sans-serif", fontSize: '10px', letterSpacing: '0.28em', textTransform: 'uppercase', color: 'rgba(196,163,85,0.85)', marginBottom: '28px', animation: 'fadeUp 1s 0.2s both' }}>
             {t('hero.tagline')}
@@ -34,7 +39,7 @@ function HomePage({ navigate, addToCart, tweaks = {}, lang = 'EN' }) {
             {t('hero.subtitle')}
           </p>
           <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap', animation: 'fadeUp 1s 0.8s both' }}>
-            <button onClick={() => navigate('collection')} style={{ background: '#c4a355', color: '#1b1916', border: 'none', cursor: 'pointer', padding: '14px 36px', fontFamily: "'Jost', sans-serif", fontSize: '11px', letterSpacing: '0.18em', textTransform: 'uppercase', fontWeight: 500 }}>
+            <button onClick={() => navigate('collection')} style={{ background: '#c4a355', color: '#1b1916', border: 'none', cursor: 'pointer', padding: '14px 36px', fontFamily: "'Jost', sans-serif", fontSize: '11px', letterSpacing: '0.18em', textTransform: 'uppercase', fontWeight: 600 }}>
               {t('hero.cta.browse')}
             </button>
             <button onClick={() => navigate('about')} style={{ background: 'transparent', color: '#f0ead8', border: '1px solid rgba(240,234,216,0.3)', cursor: 'pointer', padding: '14px 36px', fontFamily: "'Jost', sans-serif", fontSize: '11px', letterSpacing: '0.18em', textTransform: 'uppercase' }}>
@@ -60,7 +65,7 @@ function HomePage({ navigate, addToCart, tweaks = {}, lang = 'EN' }) {
               <FadeUp key={tr.title} delay={i * 0.1}>
                 <div style={{ padding: 'clamp(28px,4vw,48px) clamp(24px,3vw,40px)', borderRight: i < 2 ? '1px solid rgba(240,234,216,0.07)' : 'none', textAlign: 'center' }}>
                   <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '18px', color: '#f0ead8', margin: '0 0 8px' }}>{tr.title}</p>
-                  <p style={{ fontFamily: "'Jost', sans-serif", fontSize: '11px', color: 'rgba(240,234,216,0.4)', margin: 0, lineHeight: 1.7 }}>{tr.sub}</p>
+                  <p style={{ fontFamily: "'Jost', sans-serif", fontSize: '11px', color: 'rgba(240,234,216,0.58)', margin: 0, lineHeight: 1.7 }}>{tr.sub}</p>
                 </div>
               </FadeUp>
             ))}
@@ -69,33 +74,24 @@ function HomePage({ navigate, addToCart, tweaks = {}, lang = 'EN' }) {
       </section>
 
       {/* ── FEATURED COLLECTION ── */}
-      <section className="selected-works-light" style={{ padding: 'clamp(72px,9vw,128px) 0', background: '#f0ead8', color: '#1b1916' }}>
-        <style>{`
-          .selected-works-light h3 { color: #1b1916 !important; }
-          .selected-works-light .pc-artist { color: rgba(27,25,22,0.55) !important; }
-          .selected-works-light .pc-price  { color: rgba(27,25,22,0.55) !important; }
-          .selected-works-light .pc-tier-std {
-            color: rgba(27,25,22,0.55) !important;
-            border-color: rgba(27,25,22,0.15) !important;
-          }
-        `}</style>
+      <section style={{ padding: 'clamp(72px,9vw,128px) 0' }}>
         <div style={C.container}>
           <FadeUp>
             <div style={{ textAlign: 'center', marginBottom: 'clamp(40px,5vw,72px)' }}>
-              <p style={{ fontFamily: "'Jost', sans-serif", fontSize: '10px', letterSpacing: '0.22em', textTransform: 'uppercase', color: '#8b3e2f', marginBottom: '16px' }}>{t('collection.label')}</p>
-              <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(36px,5vw,64px)', fontWeight: 300, margin: '0 0 16px', color: '#1b1916' }}>{t('collection.title')}</h2>
-              <p style={{ fontFamily: "'Jost', sans-serif", fontSize: '14px', color: 'rgba(27,25,22,0.6)', maxWidth: '500px', margin: '0 auto', lineHeight: 1.75 }}>{t('collection.desc')}</p>
+              <p style={{ fontFamily: "'Jost', sans-serif", fontSize: '10px', letterSpacing: '0.22em', textTransform: 'uppercase', color: 'rgba(196,163,85,0.8)', marginBottom: '16px' }}>{t('collection.label')}</p>
+              <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(36px,5vw,64px)', fontWeight: 300, margin: '0 0 16px' }}>{t('collection.title')}</h2>
+              <p style={{ fontFamily: "'Jost', sans-serif", fontSize: '14px', color: 'rgba(240,234,216,0.58)', maxWidth: '500px', margin: '0 auto', lineHeight: 1.75 }}>{t('collection.desc')}</p>
             </div>
           </FadeUp>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: 'clamp(28px,3vw,48px)' }}>
             {featured.map((artwork, i) => (
               <FadeUp key={artwork.id} delay={Math.min(i * 0.07, 0.4)}>
-                <ProductCard artwork={artwork} onNavigate={navigate} lang={lang} />
+                <ProductCard artwork={artwork} onNavigate={navigate} lang={lang} currency={currency} />
               </FadeUp>
             ))}
           </div>
           <FadeUp style={{ textAlign: 'center', marginTop: 'clamp(40px,5vw,64px)' }}>
-            <button onClick={() => navigate('collection')} style={{ background: 'transparent', color: '#1b1916', border: '1px solid rgba(27,25,22,0.3)', cursor: 'pointer', padding: '13px 40px', fontFamily: "'Jost', sans-serif", fontSize: '11px', letterSpacing: '0.16em', textTransform: 'uppercase' }}>
+            <button onClick={() => navigate('collection')} style={{ background: 'transparent', color: '#f0ead8', border: '1px solid rgba(240,234,216,0.3)', cursor: 'pointer', padding: '13px 40px', fontFamily: "'Jost', sans-serif", fontSize: '11px', letterSpacing: '0.16em', textTransform: 'uppercase' }}>
               {t('collection.viewAll')}
             </button>
           </FadeUp>
@@ -112,16 +108,16 @@ function HomePage({ navigate, addToCart, tweaks = {}, lang = 'EN' }) {
                 <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(30px,4vw,52px)', fontWeight: 300, lineHeight: 1.15, margin: '0 0 24px' }}>
                   {t('standard.title')}
                 </h2>
-                <p style={{ fontFamily: "'Jost', sans-serif", fontSize: '14px', color: 'rgba(240,234,216,0.5)', lineHeight: 1.85, marginBottom: '32px', fontWeight: 300 }}>{t('standard.desc')}</p>
+                <p style={{ fontFamily: "'Jost', sans-serif", fontSize: '14px', color: 'rgba(240,234,216,0.8)', lineHeight: 1.85, marginBottom: '32px', fontWeight: 300 }}>{t('standard.desc')}</p>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px 24px' }}>
                   {t('standard.items').map(item => (
                     <div key={item} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                       <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#c4a355', flexShrink: 0 }} />
-                      <span style={{ fontFamily: "'Jost', sans-serif", fontSize: '12px', color: 'rgba(240,234,216,0.6)' }}>{item}</span>
+                      <span style={{ fontFamily: "'Jost', sans-serif", fontSize: '12px', color: 'rgba(240,234,216,0.85)' }}>{item}</span>
                     </div>
                   ))}
                 </div>
-                <button onClick={() => navigate('collection')} style={{ marginTop: '36px', background: 'none', border: 'none', cursor: 'pointer', fontFamily: "'Jost', sans-serif", fontSize: '11px', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#c4a355', padding: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <button onClick={() => navigate('collection')} style={{ marginTop: '36px', background: 'none', border: 'none', cursor: 'pointer', fontFamily: "'Jost', sans-serif", fontSize: '11px', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#dcbf7c', padding: 0, display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'underline', textUnderlineOffset: '3px' }}>
                   {t('standard.cta')} <span>{isAr ? '←' : '→'}</span>
                 </button>
               </div>
@@ -207,7 +203,7 @@ function HomePage({ navigate, addToCart, tweaks = {}, lang = 'EN' }) {
                 <div style={{ textAlign: 'center' }}>
                   <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '48px', fontWeight: 300, color: 'rgba(196,163,85,0.25)', margin: '0 0 16px', lineHeight: 1 }}>0{i+1}</p>
                   <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '20px', fontWeight: 400, color: '#f0ead8', margin: '0 0 12px' }}>{s.t}</h3>
-                  <p style={{ fontFamily: "'Jost', sans-serif", fontSize: '12px', color: 'rgba(240,234,216,0.4)', lineHeight: 1.75, margin: 0 }}>{s.d}</p>
+                  <p style={{ fontFamily: "'Jost', sans-serif", fontSize: '12px', color: 'rgba(240,234,216,0.56)', lineHeight: 1.75, margin: 0 }}>{s.d}</p>
                 </div>
               </FadeUp>
             ))}
@@ -216,7 +212,7 @@ function HomePage({ navigate, addToCart, tweaks = {}, lang = 'EN' }) {
       </section>
 
       {/* ── THE WALL — Pinterest-style masonry of every available print ── */}
-      <PinterestWall navigate={navigate} lang={lang} isAr={isAr} t={t} />
+      <PinterestWall navigate={navigate} lang={lang} isAr={isAr} t={t} currency={currency} />
 
       {/* ── NEWSLETTER ── */}
       <section style={{ padding: 'clamp(72px,9vw,128px) 0', borderTop: '1px solid rgba(240,234,216,0.06)' }}>
@@ -271,7 +267,7 @@ Object.assign(window, { HomePage });
 /* ─────────────────────────────────────────
    PinterestWall — masonry of all artworks
 ───────────────────────────────────────── */
-function PinterestWall({ navigate, lang, isAr, t }) {
+function PinterestWall({ navigate, lang, isAr, t, currency = 'EGP' }) {
   // Order artworks for varied visual rhythm: alternate rare + standard, mix landscape with portrait
   const ordered = React.useMemo(() => {
     // Deterministic shuffle for nice variety: take all works, sort by a synthetic key
@@ -286,7 +282,7 @@ function PinterestWall({ navigate, lang, isAr, t }) {
   }, []);
 
   return (
-    <section style={{ padding: 'clamp(8px,1.5vw,24px) 0', background: '#8b3e2f', borderTop: '1px solid rgba(27,25,22,0.25)', borderBottom: '1px solid rgba(27,25,22,0.25)' }}>
+    <section style={{ padding: 'clamp(8px,1.5vw,24px) 0', background: '#171410', borderTop: '1px solid rgba(240,234,216,0.07)', borderBottom: '1px solid rgba(240,234,216,0.07)' }}>
       {/* Masonry — CSS columns */}
       <div style={{
         columnCount: 4,
@@ -302,7 +298,7 @@ function PinterestWall({ navigate, lang, isAr, t }) {
         `}</style>
 
         {ordered.map((artwork, i) => (
-          <PinterestCard key={artwork.id} artwork={artwork} onNavigate={navigate} lang={lang} delay={Math.min(i * 0.04, 0.4)} />
+          <PinterestCard key={artwork.id} artwork={artwork} onNavigate={navigate} lang={lang} currency={currency} delay={Math.min(i * 0.04, 0.4)} />
         ))}
       </div>
 
@@ -315,11 +311,12 @@ function PinterestWall({ navigate, lang, isAr, t }) {
   );
 }
 
-function PinterestCard({ artwork, onNavigate, lang, delay }) {
+function PinterestCard({ artwork, onNavigate, lang, currency = 'EGP', delay }) {
   const isAr = lang === 'AR';
   const [hovered, setHovered] = React.useState(false);
   const isRare = artwork.tier === 'rare';
   const remaining = artwork.editionSize - artwork.editionsSold;
+  const price = window.formatPrice(artwork.prices['30×40'], currency);
 
   // Natural aspect ratio determined by orientation + small variation for visual rhythm
   // Landscape works → 4/3; otherwise alternate among 3/4, 4/5, 5/7 for varied heights
@@ -390,14 +387,12 @@ function PinterestCard({ artwork, onNavigate, lang, delay }) {
           {isAr ? artwork.titleAr : artwork.title}
         </h3>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '8px' }}>
-          <span style={{ fontFamily: "'Jost', sans-serif", fontSize: '11px', color: 'rgba(240,234,216,0.5)' }}>
-            {isAr ? 'من' : 'From'} EGP {artwork.prices['30×40'].toLocaleString()}
+          <span style={{ fontFamily: "'Jost', sans-serif", fontSize: '11px', color: 'rgba(240,234,216,0.68)' }}>
+            {isAr ? 'من' : 'From'} {price.primary}{price.secondary ? ` · ${price.secondary}` : ''}
           </span>
-          {remaining <= 2 && (
-            <span style={{ fontFamily: "'Jost', sans-serif", fontSize: '9px', color: '#c4a355', letterSpacing: '0.08em' }}>
-              {isAr ? `${remaining} متبقية` : `${remaining} left`}
-            </span>
-          )}
+          <span style={{ fontFamily: "'Jost', sans-serif", fontSize: '9px', color: remaining <= 2 ? '#c4a355' : 'rgba(240,234,216,0.55)', letterSpacing: '0.04em', whiteSpace: 'nowrap' }}>
+            {window.editionLabel(artwork, lang)}
+          </span>
         </div>
       </div>
     </div>

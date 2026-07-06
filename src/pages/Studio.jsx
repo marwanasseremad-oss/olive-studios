@@ -183,7 +183,7 @@ function StarOfMonthPage({ navigate, tweaks = {}, lang = 'EN' }) {
   const body = isAr ? STAR_BODY_AR : STAR_BODY_EN;
 
   return (
-    <div style={{ background: tweaks.bg || '#1b1916', color: '#f0ead8', paddingTop: '72px' }}>
+    <div style={{ background: tweaks.bg || '#1b1916', color: '#f0ead8', paddingTop: '108px' }}>
       <StudioHero
         kicker={isAr ? (post.tagAr + ' · ' + post.dateAr) : (post.tag + ' · ' + post.date)}
         title={isAr ? post.subtitleAr : post.subtitle}
@@ -232,7 +232,7 @@ function BehindScenesPage({ navigate, tweaks = {}, lang = 'EN' }) {
   const posts = STUDIO_POSTS.behindScenes;
 
   return (
-    <div style={{ background: tweaks.bg || '#1b1916', color: '#f0ead8', paddingTop: '72px' }}>
+    <div style={{ background: tweaks.bg || '#1b1916', color: '#f0ead8', paddingTop: '108px' }}>
       <StudioHero
         kicker={isAr ? 'الاستوديو · من الكواليس' : 'The Studio · Behind the Scenes'}
         title={isAr ? 'كيف يُصنع كل شيء.' : 'How everything gets made.'}
@@ -298,7 +298,7 @@ function GuidesPage({ navigate, tweaks = {}, lang = 'EN' }) {
   const guides = STUDIO_POSTS.guides;
 
   return (
-    <div style={{ background: tweaks.bg || '#1b1916', color: '#f0ead8', paddingTop: '72px' }}>
+    <div style={{ background: tweaks.bg || '#1b1916', color: '#f0ead8', paddingTop: '108px' }}>
       <StudioHero
         kicker={isAr ? 'الاستوديو · أدلّة' : 'The Studio · Guides'}
         title={isAr ? 'كل ما تحتاج معرفته قبل التعليق.' : 'Everything you need before it goes on the wall.'}

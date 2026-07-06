@@ -124,7 +124,7 @@ function CarePage({ navigate, tweaks = {}, lang = 'EN' }) {
             <div style={{ ...PAGE.card, marginTop: 'clamp(48px,6vw,72px)', textAlign: 'center', padding: '40px', maxWidth: '480px' }}>
               <h2 style={{ ...PAGE.h2, fontSize: '22px', marginBottom: '12px' }}>{content.ctaTitle}</h2>
               <p style={{ ...PAGE.body, marginBottom: '24px' }}>{content.ctaDesc}</p>
-              <a href="https://api.whatsapp.com/send?phone=201001161776" target="_blank" rel="noopener noreferrer" style={PAGE.outlineBtn}>{content.ctaBtn}</a>
+              <a href="https://wa.me/+201234567890" target="_blank" rel="noopener noreferrer" style={PAGE.outlineBtn}>{content.ctaBtn}</a>
             </div>
           </FadeUp>
         </div>

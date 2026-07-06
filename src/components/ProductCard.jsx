@@ -7,13 +7,13 @@ function TierBadge({ tier, lang = 'EN', size = 'normal' }) {
     : (isAr ? 'إصدار قياسي' : 'Standard Edition');
 
   return (
-    <span style={{
+    <span className={isRare ? 'pc-tier-rare' : 'pc-tier-std'} style={{
       display: 'inline-flex', alignItems: 'center', gap: '5px',
       fontFamily: isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif",
       fontSize: size === 'small' ? '9px' : '10px',
       letterSpacing: isAr ? 0 : '0.14em',
       textTransform: isAr ? 'none' : 'uppercase',
-      color: isRare ? '#c4a355' : 'rgba(240,234,216,0.45)',
+      color: isRare ? '#c4a355' : 'rgba(240,234,216,0.62)',
       background: isRare ? 'rgba(196,163,85,0.1)' : 'transparent',
       border: isRare ? '1px solid rgba(196,163,85,0.3)' : '1px solid rgba(240,234,216,0.12)',
       padding: size === 'small' ? '2px 7px' : '3px 9px',
@@ -24,12 +24,14 @@ function TierBadge({ tier, lang = 'EN', size = 'normal' }) {
   );
 }
 
-function ProductCard({ artwork, onNavigate, lang = 'EN', featured: featuredOverride = false }) {
+function ProductCard({ artwork, onNavigate, lang = 'EN', currency = 'EGP', featured: featuredOverride = false }) {
   const t = (key, vars) => T(key, lang, vars);
   const isAr = lang === 'AR';
   const [hovered, setHovered] = React.useState(false);
   const isRare = artwork.tier === 'rare';
   const remaining = artwork.editionSize - artwork.editionsSold;
+  const scarce = remaining <= 2;
+  const price = window.formatPrice(artwork.prices['30×40'], currency);
 
   return (
     <div
@@ -43,8 +45,8 @@ function ProductCard({ artwork, onNavigate, lang = 'EN', featured: featuredOverr
     >
       <div style={{
         position: 'relative', overflow: 'hidden',
-        aspectRatio: artwork.landscape ? '4/3' : (isRare ? '3/4' : '4/5'),
-        background: '#242018',
+        aspectRatio: artwork.aspectRatio || (artwork.landscape ? '4/3' : (isRare ? '3/4' : '4/5')),
+        background: artwork.fit === 'contain' ? '#fff' : '#242018',
         boxShadow: isRare && hovered ? '0 0 0 1px rgba(196,163,85,0.35)' : 'none',
         transition: 'box-shadow 0.4s ease',
       }}>
@@ -58,11 +60,9 @@ function ProductCard({ artwork, onNavigate, lang = 'EN', featured: featuredOverr
             {t('artwork.viewEdition')}
           </span>
         </div>
-        {/* Edition badge top-left */}
-        <div style={{ position: 'absolute', top: '12px', left: '12px', background: 'rgba(28,26,22,0.85)', backdropFilter: 'blur(6px)', padding: '4px 10px', fontFamily: isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif", fontSize: '10px', letterSpacing: isAr ? 0 : '0.08em', color: remaining <= 2 ? '#c4a355' : 'rgba(240,234,216,0.55)' }}>
-          {remaining <= 2
-            ? (isAr ? `${remaining} متبقية فقط` : `Only ${remaining} left`)
-            : (isAr ? `${t('artwork.edition')} ${artwork.editionsSold}/${artwork.editionSize}` : `Ed. ${artwork.editionsSold}/${artwork.editionSize}`)}
+        {/* Edition badge top-left — one consistent convention: "3 of 5 remaining" */}
+        <div style={{ position: 'absolute', top: '12px', left: '12px', background: 'rgba(28,26,22,0.85)', backdropFilter: 'blur(6px)', padding: '4px 10px', fontFamily: isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif", fontSize: '10px', letterSpacing: isAr ? 0 : '0.08em', color: scarce ? '#c4a355' : 'rgba(240,234,216,0.68)' }}>
+          {window.editionLabel(artwork, lang)}
         </div>
         {/* Rare corner accent */}
         {isRare && (
@@ -74,10 +74,11 @@ function ProductCard({ artwork, onNavigate, lang = 'EN', featured: featuredOverr
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
         <TierBadge tier={artwork.tier} lang={lang} size="small" />
-        <p style={{ fontFamily: isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif", fontSize: '10px', letterSpacing: isAr ? 0 : '0.14em', textTransform: isAr ? 'none' : 'uppercase', color: '#8a7f6e', margin: 0 }}>{artwork.artist}</p>
+        <p className="pc-artist" style={{ fontFamily: isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif", fontSize: '10px', letterSpacing: isAr ? 0 : '0.14em', textTransform: isAr ? 'none' : 'uppercase', color: 'rgba(240,234,216,0.62)', margin: 0 }}>{artwork.artist}</p>
         <h3 style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: '20px', fontWeight: 400, color: '#f0ead8', margin: 0, lineHeight: 1.2 }}>{isAr ? artwork.titleAr : artwork.title}</h3>
-        <p style={{ fontFamily: isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif", fontSize: '12px', color: '#8a7f6e', margin: 0 }}>
-          {isAr ? 'من' : 'From'} EGP {artwork.prices['30×40'].toLocaleString()}
+        <p className="pc-price" style={{ fontFamily: isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif", fontSize: '12px', color: 'rgba(240,234,216,0.62)', margin: 0, display: 'flex', alignItems: 'baseline', gap: '6px', flexWrap: 'wrap' }}>
+          <span>{isAr ? 'من' : 'From'} {price.primary}</span>
+          {price.secondary && <span style={{ fontSize: '10.5px', opacity: 0.75 }}>{price.secondary}</span>}
         </p>
       </div>
     </div>

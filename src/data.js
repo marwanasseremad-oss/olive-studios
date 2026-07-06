@@ -49,6 +49,44 @@ window.ARTWORKS = [
     prices: STD_PRICES, framedPrices: STD_FRAMED,
   },
 
+  // ── AHMED EMAD (Collection 01 — motion portraiture) ────────────
+  {
+    id: 'frequency',
+    tier: 'standard',
+    title: 'Frequency', titleAr: 'تردد',
+    artist: 'Ahmed Emad', artistId: 'ahmed-emad',
+    image: (window.__resources&&window.__resources.ahmedEmad1||'src/assets/ahmed-emad-1.jpg'),
+    description: 'A figure caught mid-turn, her couture dissolving into a lattice of electric blue. Emad holds the shutter open long enough for movement to become architecture — the body redrawn as the trace it leaves behind.',
+    descriptionAr: 'جسدٌ يُلتقط في منتصف الالتفاتة، يذوب زيّه في شبكةٍ من الأزرق الكهربائي. يُبقي عماد الغالق مفتوحاً حتى تصير الحركة عمارةً — جسدٌ يُعاد رسمه بالأثر الذي يخلّفه.',
+    editionSize: 10, editionsSold: 0, category: 'portrait', featured: true, number: 'OE-011',
+    fit: 'cover', aspectRatio: '4 / 5',
+    prices: STD_PRICES, framedPrices: STD_FRAMED,
+  },
+  {
+    id: 'combustion',
+    tier: 'standard',
+    title: 'Combustion', titleAr: 'اشتعال',
+    artist: 'Ahmed Emad', artistId: 'ahmed-emad',
+    image: (window.__resources&&window.__resources.ahmedEmad2||'src/assets/ahmed-emad-2.jpg'),
+    description: 'Scarlet fabric ignites against the dark as the dancer swings through frame. Two faces, one gesture — Emad lets a single body multiply into the seconds it took to move, grief and fury blurred into one long breath.',
+    descriptionAr: 'يشتعل القماش القرمزي في وجه العتمة بينما تندفع الراقصة عبر الكادر. وجهان وحركة واحدة — يترك عماد الجسد الواحد يتكاثر إلى الثواني التي استغرقها، فيمتزج الحزن والغضب في نَفَسٍ طويل واحد.',
+    editionSize: 10, editionsSold: 0, category: 'portrait', featured: true, number: 'OE-012',
+    fit: 'cover', aspectRatio: '4 / 5',
+    prices: STD_PRICES, framedPrices: STD_FRAMED,
+  },
+  {
+    id: 'apparition',
+    tier: 'rare',
+    title: 'Apparition', titleAr: 'طيف',
+    artist: 'Ahmed Emad', artistId: 'ahmed-emad',
+    image: (window.__resources&&window.__resources.ahmedEmad3||'src/assets/ahmed-emad-3.jpg'),
+    description: 'A seated figure surfaces from a field of cold blue, half-dissolved, half-remembered. The most restrained of Emad\'s motion studies and the most haunting — a portrait of presence in the act of vanishing.',
+    descriptionAr: 'جسدٌ جالس يطفو من حقلٍ من الأزرق البارد، نصفه ذائب ونصفه متذكَّر. أكثر دراسات عماد الحركية تحفّظاً وأشدّها وقعاً — صورةٌ للحضور وهو يتلاشى.',
+    editionSize: 5, editionsSold: 0, category: 'portrait', featured: true, number: 'OE-013',
+    fit: 'cover', aspectRatio: '4 / 5',
+    prices: RARE_PRICES, framedPrices: RARE_FRAMED,
+  },
+
   // ── RARE EDITIONS ──────────────────────────────────────────────
   {
     id: 'geometry-of-faith',
@@ -173,6 +211,13 @@ window.ARTISTS = [
     artworkIds: ['hera', 'swan-maiden', 'le-renard-et-lenfant'],
   },
   {
+    id: 'ahmed-emad', name: 'Ahmed Emad',
+    location: 'Cairo, Egypt', locationAr: 'القاهرة، مصر',
+    bio: "Cairo-based photographer working in long-exposure motion portraiture, where the body is never frozen but smeared across time — gesture made visible, presence caught in the act of becoming something else. Emad shoots almost entirely in the studio dark, opening the shutter long enough for a single movement to write itself onto the frame, so that each portrait holds not a moment but the seconds it took to pass. His three works in Collection 01 — Frequency, Combustion, and the rare edition Apparition — move from electric blue couture to scarlet fury to a cold, half-dissolved hush, three temperatures of the same enquiry: what remains of a person when stillness is taken away. His work brings a register of contemporary, painterly portraiture to the collection, less concerned with likeness than with the trace a body leaves behind.",
+    bioAr: 'مصوّر مقيم في القاهرة يعمل في فن البورتريه طويل التعريض، حيث لا يُجمَّد الجسد بل يُمسح عبر الزمن — حركةٌ تُرى عياناً، وحضورٌ يُلتقط وهو يصير شيئاً آخر. يصوّر عماد في عتمة الاستوديو غالباً، فاتحاً الغالق مدةً تكفي لأن تكتب الحركة الواحدة نفسها على الكادر، فتحمل كل صورة لا لحظةً بل الثواني التي استغرقها مرورها. أعماله الثلاثة في المجموعة ٠١ — تردد، واشتعال، والإصدار النادر طيف — تنتقل من الأزرق الكهربائي إلى القرمزي الغاضب إلى سكونٍ بارد نصف ذائب، ثلاث درجاتٍ لحرارة السؤال ذاته: ماذا يبقى من المرء حين يُنزَع عنه السكون؟ يُدخل عمله إلى المجموعة سجلاً معاصراً تصويرياً، يُعنى بأثر الجسد أكثر من عنايته بالشبه.',
+    artworkIds: ['frequency', 'combustion', 'apparition'],
+  },
+  {
     id: 'karim-hassan', name: 'Karim Hassan',
     location: 'Cairo, Egypt', locationAr: 'القاهرة، مصر',
     bio: 'Cairo-born photographer whose work explores the interplay of light and geometry in Islamic architecture. His minimalist approach distills centuries of craftsmanship into contemplative visual meditations.',
@@ -201,3 +246,64 @@ window.ARTISTS = [
     artworkIds: ['coastal-calm', 'nile-morning'],
   },
 ];
+
+// ── Hybrid purchase model ──────────────────────────────────────
+// Single curator WhatsApp line, used everywhere.
+window.CURATOR_WA = '201001161776';
+
+// Tier routing. Returns 'direct' (cart-first) or 'concierge' (curator-first).
+// Standard + unframed → direct.  Rare (any format) OR any framed order → concierge.
+window.purchaseTier = function (artwork, framed) {
+  if (!artwork) return 'direct';
+  if (artwork.tier === 'rare') return 'concierge';
+  if (framed) return 'concierge';
+  return 'direct';
+};
+
+// Shipping brackets (EGP). Framed pieces ship in a custom crate → per-item surcharge.
+window.SHIPPING = {
+  regions: {
+    cairo:  { base: 150,  crate: 400,  labelEn: 'Cairo',          labelAr: 'القاهرة',            etaEn: '3–5 business days',   etaAr: '٣–٥ أيام عمل' },
+    egypt:  { base: 300,  crate: 600,  labelEn: 'Rest of Egypt',  labelAr: 'باقي مصر',            etaEn: '5–8 business days',   etaAr: '٥–٨ أيام عمل' },
+    intl:   { base: 1800, crate: 3500, labelEn: 'International',   labelAr: 'دولي',                etaEn: '10–15 business days', etaAr: '١٠–١٥ يوم عمل' },
+  },
+  cost: function (region, framedCount) {
+    const r = window.SHIPPING.regions[region] || window.SHIPPING.regions.egypt;
+    return r.base + (framedCount || 0) * r.crate;
+  },
+};
+
+// Price for a given artwork configuration.
+window.priceFor = function (artwork, size, framed) {
+  if (!artwork) return 0;
+  return framed ? artwork.framedPrices[size] : artwork.prices[size];
+};
+
+// ── Currency display ────────────────────────────────────────────
+// All charges settle in EGP. USD/EUR are indicative estimates only,
+// shown to reduce friction for international collectors.
+window.CURRENCY = {
+  order: ['EGP', 'USD', 'EUR'],
+  symbols: { EGP: 'EGP', USD: '$', EUR: '€' },
+  rates: { EGP: 1, USD: 0.0205, EUR: 0.019 }, // EGP → currency, indicative
+};
+
+// Returns { primary, secondary }. When a foreign currency is selected,
+// primary is the converted estimate and secondary discloses the true EGP charge.
+window.formatPrice = function (amountEGP, currency) {
+  const cur = currency || 'EGP';
+  if (cur === 'EGP') return { primary: `EGP ${Math.round(amountEGP).toLocaleString()}`, secondary: null };
+  const rate = window.CURRENCY.rates[cur] || 1;
+  const symbol = window.CURRENCY.symbols[cur] || '';
+  const converted = Math.round(amountEGP * rate).toLocaleString();
+  return { primary: `${symbol}${converted}`, secondary: `EGP ${Math.round(amountEGP).toLocaleString()} · indicative` };
+};
+
+// ── Consistent scarcity language ────────────────────────────────
+// One convention everywhere: "3 of 5 remaining". Never a bare fraction.
+window.editionLabel = function (artwork, lang) {
+  const remaining = artwork.editionSize - artwork.editionsSold;
+  return lang === 'AR'
+    ? `${remaining} من ${artwork.editionSize} متبقية`
+    : `${remaining} of ${artwork.editionSize} remaining`;
+};

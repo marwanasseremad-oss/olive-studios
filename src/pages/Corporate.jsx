@@ -106,7 +106,7 @@ function CorporatePage({ navigate, tweaks = {}, lang = 'EN' }) {
                   </div>
                   <div><label style={lbl}>{fl.message}</label><textarea required rows={4} placeholder={fl.msgPlaceholder} style={{ ...inputStyle, resize: 'vertical' }} value={form.message} onChange={set('message')} /></div>
                   <button type="submit" style={PAGE.goldBtn}>{fl.submit}</button>
-                  <a href="https://api.whatsapp.com/send?phone=201001161776?text=Hi%2C%20I'm%20interested%20in%20corporate%20art%20packages." target="_blank" rel="noopener noreferrer" style={{ ...PAGE.outlineBtn, textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+                  <a href="https://wa.me/+201234567890?text=Hi%2C%20I'm%20interested%20in%20corporate%20art%20packages." target="_blank" rel="noopener noreferrer" style={{ ...PAGE.outlineBtn, textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
                     <Icon.WA /> {fl.waBtn}
                   </a>
                 </form>

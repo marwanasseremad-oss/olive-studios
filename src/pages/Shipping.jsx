@@ -23,6 +23,14 @@ function ShippingPage({ navigate, tweaks = {}, lang = 'EN' }) {
           ]
         },
         {
+          title: 'International Shipping',
+          paras: [
+            { strong: 'Rates & Timing:', body: 'A flat 1,800 EGP shipping fee (3,500 EGP for framed pieces, which travel in a custom crate). Delivery takes 10–15 business days via insured, trackable courier.' },
+            { strong: 'Customs & Import Duties:', body: 'International orders may be subject to customs duties, VAT, or import taxes levied by the destination country. These are set by your local authority, payable on delivery, and are not included in the print or shipping price.' },
+            { strong: 'Currency:', body: 'Prices are charged in Egyptian Pounds (EGP). USD/EUR figures shown on the site are indicative estimates to help you budget — your card issuer sets the final exchange rate.' },
+          ]
+        },
+        {
           title: 'Packaging',
           paras: [
             { strong: 'Unframed Prints:', body: 'Shipped flat in rigid acid-free packaging with protective tissue. Outer cardboard box reinforced at corners.' },
@@ -65,6 +73,14 @@ function ShippingPage({ navigate, tweaks = {}, lang = 'EN' }) {
             { strong: 'الإسكندرية والساحل الشمالي:', body: 'رسوم ثابتة ٢٥٠ جنيه. توصيل آمن مع تتبع الشحنة.' },
             { strong: 'المحافظات الأخرى:', body: 'رسوم ثابتة ٤٠٠ جنيه. توصيل آمن مع تتبع الشحنة والتأمين.' },
             { strong: 'وقت الإنتاج:', body: 'جميع الطبعات تُنتج حسب الطلب. يرجى السماح بـ ٧–١٤ يوم عمل من تأكيد الطلب حتى التسليم. الطبعات المؤطرة قد تحتاج إلى ٣–٥ أيام إضافية.' },
+          ]
+        },
+        {
+          title: 'الشحن الدولي',
+          paras: [
+            { strong: 'الرسوم والمدة:', body: 'رسوم ثابتة ١٬٨٠٠ جنيه (٣٬٥٠٠ جنيه للقطع المؤطّرة التي تُشحن في صندوق مخصّص). التسليم خلال ١٠–١٥ يوم عمل عبر شركة شحن موثوقة مع تتبع وتأمين.' },
+            { strong: 'الجمارك ورسوم الاستيراد:', body: 'قد تخضع الطلبات الدولية لرسوم جمركية أو ضريبة قيمة مضافة أو رسوم استيراد تفرضها سلطات بلدك. تُدفع هذه الرسوم عند التسليم ولا تشملها تكلفة الطباعة أو الشحن.' },
+            { strong: 'العملة:', body: 'يتم تحصيل المبلغ بالجنيه المصري (EGP). أرقام الدولار/اليورو الظاهرة على الموقع تقديرية لمساعدتك على التخطيط — يحدد مُصدر بطاقتك سعر الصرف النهائي.' },
           ]
         },
         {
@@ -145,7 +161,7 @@ function ShippingPage({ navigate, tweaks = {}, lang = 'EN' }) {
             <div style={{ ...PAGE.card, marginTop: 'clamp(48px,6vw,72px)', textAlign: 'center', padding: '40px', maxWidth: '480px' }}>
               <h2 style={{ ...PAGE.h2, fontSize: '22px', marginBottom: '12px' }}>{c.ctaTitle}</h2>
               <p style={{ ...PAGE.body, marginBottom: '24px' }}>{c.ctaDesc}</p>
-              <a href="https://api.whatsapp.com/send?phone=201001161776" target="_blank" rel="noopener noreferrer" style={PAGE.outlineBtn}>{c.ctaBtn}</a>
+              <a href={`https://wa.me/${window.CURATOR_WA}`} target="_blank" rel="noopener noreferrer" style={PAGE.outlineBtn}>{c.ctaBtn}</a>
             </div>
           </FadeUp>
         </div>

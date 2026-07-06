@@ -4,7 +4,7 @@ function ArtistsPage({ navigate, tweaks = {}, lang = 'EN' }) {
   const isAr = lang === 'AR';
   const C = { container: { maxWidth: '1360px', margin: '0 auto', padding: '0 clamp(20px,4vw,72px)' } };
   return (
-    <div style={{ background: tweaks.bg || '#1b1916', color: '#f0ead8', paddingTop: '72px' }}>
+    <div style={{ background: tweaks.bg || '#1b1916', color: '#f0ead8', paddingTop: '108px' }}>
       <section style={{ padding: 'clamp(56px,8vw,112px) clamp(20px,4vw,72px) clamp(40px,5vw,64px)', maxWidth: '1360px', margin: '0 auto' }}>
         <FadeUp>
           <p style={{ fontFamily: "'Jost', sans-serif", fontSize: '10px', letterSpacing: '0.22em', textTransform: 'uppercase', color: 'rgba(196,163,85,0.8)', marginBottom: '16px' }}>{t('artists.pageLabel')}</p>
@@ -55,7 +55,7 @@ function ArtistDetailPage({ navigate, params = {}, tweaks = {}, lang = 'EN' }) {
   const works = window.ARTWORKS.filter(a => a.artistId === artist.id);
   const C = { container: { maxWidth: '1360px', margin: '0 auto', padding: '0 clamp(20px,4vw,72px)' } };
   return (
-    <div style={{ background: tweaks.bg || '#1b1916', color: '#f0ead8', paddingTop: '72px' }}>
+    <div style={{ background: tweaks.bg || '#1b1916', color: '#f0ead8', paddingTop: '108px' }}>
       <section style={{ padding: 'clamp(56px,8vw,96px) clamp(20px,4vw,72px)', maxWidth: '1360px', margin: '0 auto' }}>
         <button onClick={() => navigate('artists')} style={{ background: 'none', border: 'none', cursor: 'pointer', fontFamily: "'Jost', sans-serif", fontSize: '11px', letterSpacing: '0.12em', color: 'rgba(240,234,216,0.35)', textTransform: 'uppercase', padding: 0, marginBottom: '36px', display: 'flex', alignItems: 'center', gap: '8px' }}>
           {isAr ? 'جميع الفنانين ←' : '← All Artists'}

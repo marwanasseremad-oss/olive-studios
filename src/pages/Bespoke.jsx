@@ -41,7 +41,7 @@ function BespokePage({ navigate, tweaks = {}, lang = 'EN' }) {
   const handleSubmit = e => {
     e.preventDefault();
     const msg = encodeURIComponent(`${isAr ? 'طلب مخصص من' : 'Bespoke Inquiry from'} ${form.name}\n\n${form.email}\n${form.phone}\n${form.projectType}\n${form.budget}\n${form.timeline}\n\n${form.description}`);
-    window.open(`https://api.whatsapp.com/send?phone=201001161776?text=${msg}`, '_blank');
+    window.open(`https://wa.me/201234567890?text=${msg}`, '_blank');
   };
 
   return (

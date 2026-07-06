@@ -1,5 +1,5 @@
 
-function Header({ navigate, cartCount, onCartOpen, lang, setLang }) {
+function Header({ navigate, cartCount, onCartOpen, lang, setLang, currency = 'EGP', setCurrency }) {
   const [scrolled, setScrolled] = React.useState(false);
   const [visible, setVisible] = React.useState(true);
   const [openDropdown, setOpenDropdown] = React.useState(null);
@@ -71,10 +71,15 @@ function Header({ navigate, cartCount, onCartOpen, lang, setLang }) {
       sections: [
         { title: isAr ? 'الاستوديو' : 'Olive Studios', links: [
           { label: isAr ? 'قصتنا' : 'Our Story', page: 'about' },
+          { label: isAr ? 'كيف نبيع' : 'How It Works', page: 'howitworks' },
           { label: isAr ? 'سياسة الخصوصية' : 'Privacy Policy', page: 'privacy' },
           { label: isAr ? 'الشروط والأحكام' : 'Terms & Conditions', page: 'terms' },
         ]},
       ],
+    },
+    {
+      label: isAr ? 'كيف نبيع' : 'How It Works',
+      page: 'howitworks',
     },
     {
       label: isAr ? 'اكتشف' : 'Discover',
@@ -113,22 +118,17 @@ function Header({ navigate, cartCount, onCartOpen, lang, setLang }) {
         transition: 'transform 0.4s cubic-bezier(0.25,0,0,1), background 0.4s ease',
       }}>
         <div style={{ maxWidth: '1360px', margin: '0 auto', padding: '0 clamp(20px,4vw,72px)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '72px', position: 'relative' }}>
+          <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '14px', padding: '16px 0 14px' }}>
 
-            {/* Logo */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer', zIndex: 1 }}
+            {/* Logo — centered, compact */}
+            <div style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
               onClick={() => { navigate('home'); setMobileOpen(false); }}>
-              <img src={window.__resources&&window.__resources.oliveLogo||'src/assets/olive-logo.png'} alt="Olive Studios" style={{ height: '64px', width: 'auto' }} />
-              <span style={{
-                fontFamily: "'Jost', sans-serif", fontSize: '17px', letterSpacing: '0.08em',
-                color: '#f0ead8', fontWeight: 400,
-              }}>Olive Studios</span>
+              <img src={window.__resources&&window.__resources.oliveLogo||'src/assets/olive-logo.png'} alt="Olive Studios" style={{ height: '46px', width: 'auto' }} />
             </div>
 
-            {/* Desktop Nav */}
+            {/* Desktop Nav — centered under the logo */}
             <nav style={{
-              position: 'absolute', left: '50%', transform: 'translateX(-50%)',
-              display: 'flex', alignItems: 'center', gap: '36px',
+              display: 'flex', alignItems: 'center', gap: '30px',
             }} className="desktop-nav">
               {navItems.map(item => (
                 <div key={item.label} style={{ position: 'relative' }}
@@ -144,7 +144,7 @@ function Header({ navigate, cartCount, onCartOpen, lang, setLang }) {
                       color: openDropdown === item.label ? '#f0ead8' : 'rgba(240,234,216,0.65)',
                       transition: 'color 0.25s', padding: '4px 0',
                       display: 'flex', alignItems: 'center', gap: '4px',
-                      position: 'relative',
+                      position: 'relative', whiteSpace: 'nowrap',
                     }}
                     onMouseEnter={e => e.currentTarget.style.color = '#f0ead8'}
                     onMouseLeave={e => { if (openDropdown !== item.label) e.currentTarget.style.color = 'rgba(240,234,216,0.65)'; }}
@@ -157,7 +157,24 @@ function Header({ navigate, cartCount, onCartOpen, lang, setLang }) {
             </nav>
 
             {/* Actions */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+            <div style={{ position: 'absolute', top: '20px', insetInlineEnd: 0, display: 'flex', alignItems: 'center', gap: '18px' }}>
+              {/* Currency toggle — indicative USD/EUR alongside EGP */}
+              {setCurrency && (
+                <button
+                  onClick={() => { const order = window.CURRENCY.order; setCurrency(order[(order.indexOf(currency) + 1) % order.length]); }}
+                  title={isAr ? 'أسعار تقريبية — التحصيل الفعلي بالجنيه المصري' : 'Indicative pricing — you are charged in EGP'}
+                  style={{
+                    background: 'none', border: '1px solid rgba(240,234,216,0.18)', cursor: 'pointer',
+                    fontFamily: "'Jost', sans-serif", fontSize: '10.5px',
+                    letterSpacing: '0.1em', color: 'rgba(240,234,216,0.6)',
+                    padding: '4px 9px', borderRadius: '2px', transition: 'color 0.2s, border-color 0.2s',
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.color = '#f0ead8'; e.currentTarget.style.borderColor = 'rgba(196,163,85,0.5)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.color = 'rgba(240,234,216,0.6)'; e.currentTarget.style.borderColor = 'rgba(240,234,216,0.18)'; }}>
+                  {currency}
+                </button>
+              )}
+
               {/* Language toggle */}
               <button onClick={() => setLang(l => l === 'EN' ? 'AR' : 'EN')} style={{
                 background: 'none', border: 'none', cursor: 'pointer',

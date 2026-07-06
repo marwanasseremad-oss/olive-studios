@@ -1,5 +1,5 @@
 
-function ArtworkDetailPage({ navigate, params = {}, addToCart, tweaks = {}, lang = 'EN' }) {
+function ArtworkDetailPage({ navigate, params = {}, addToCart, tweaks = {}, lang = 'EN', currency = 'EGP' }) {
   const t = (key, vars) => T(key, lang, vars);
   const isAr = lang === 'AR';
   const artwork = window.ARTWORKS.find(a => a.id === params.id) || window.ARTWORKS[0];
@@ -10,6 +10,11 @@ function ArtworkDetailPage({ navigate, params = {}, addToCart, tweaks = {}, lang
   const [frameColor, setFrameColor] = React.useState('black'); // 'black' | 'white'
   const [added, setAdded] = React.useState(false);
   const [roomOpen, setRoomOpen] = React.useState(false);
+  const [detailsOpen, setDetailsOpen] = React.useState(false);
+
+  const artistObj = window.ARTISTS.find(a => a.id === artwork.artistId);
+  // Which purchase path this configuration routes to.
+  const routing = window.purchaseTier(artwork, framed); // 'direct' | 'concierge'
 
   // Lock body scroll when room modal is open
   React.useEffect(() => {
@@ -46,6 +51,7 @@ function ArtworkDetailPage({ navigate, params = {}, addToCart, tweaks = {}, lang
   const handleAddToCart = () => {
     addToCart({
       id: artwork.id + '-' + size + '-' + framed + (framed ? '-' + frameColor : ''),
+      artworkId: artwork.id,
       title: isAr ? artwork.titleAr : artwork.title,
       artist: artwork.artist,
       image: artwork.image,
@@ -53,28 +59,49 @@ function ArtworkDetailPage({ navigate, params = {}, addToCart, tweaks = {}, lang
       frameColor: framed ? frameColor : null,
       number: artwork.number,
       tier: artwork.tier,
+      editionsSold: artwork.editionsSold,
+      editionSize: artwork.editionSize,
     });
     setAdded(true);
     setTimeout(() => setAdded(false), 2500);
   };
 
-  const waMessage = () => {
-    const tierLabel = isRare ? 'Rare Edition' : 'Standard Edition';
-    const name = isAr ? artwork.titleAr : artwork.title;
-    if (isAr) return encodeURIComponent(`مرحبًا، حابب أعرف تفاصيل عن "${name}" — ${tierLabel} (${size}${framed ? `، مؤطرة (${frameColor === 'white' ? 'إطار أبيض' : 'إطار أسود'})` : ''})`);
-    return encodeURIComponent(`Hi, I'd like to know more about "${name}" — ${tierLabel} (${size}${framed ? `, framed (${frameColor} frame)` : ''})`);
+  const name = () => isAr ? artwork.titleAr : artwork.title;
+  const tierLabelEn = isRare ? 'Rare Edition' : 'Standard Edition';
+  const framingEn = framed ? `, framed (${frameColor} frame)` : ', unframed';
+  const framingAr = framed ? `، مؤطّرة (${frameColor === 'white' ? 'إطار أبيض' : 'إطار أسود'})` : '، بدون إطار';
+  const tierLabelAr = isRare ? 'إصدار نادر' : 'إصدار قياسي';
+
+  // Curator-reserve message (concierge path) — full context per the brief.
+  const reserveMsg = () => isAr
+    ? encodeURIComponent(`مرحبًا، أودّ حجز "${name()}" لـ${artwork.artist} — ${tierLabelAr}، ${size} سم${framingAr}. ممكن ترشدني في التفاصيل؟`)
+    : encodeURIComponent(`Hi, I'd like to reserve "${name()}" by ${artwork.artist} — ${tierLabelEn}, ${size} cm${framingEn}. Could you walk me through the details?`);
+
+  // Soft-enquiry message (curator text link on direct-buy pieces).
+  const enquireMsg = () => isAr
+    ? encodeURIComponent(`مرحبًا، أنظر إلى "${name()}" (${tierLabelAr}). أفكّر في عدة قطع / تأطير مخصّص وأودّ معرفة المزيد عن الفنان.`)
+    : encodeURIComponent(`Hi, I'm looking at "${name()}" (${tierLabelEn}). I'm considering multiple pieces / custom framing and would love to know more about the artist.`);
+
+  const reserveHref = `https://wa.me/${window.CURATOR_WA}?text=${reserveMsg()}`;
+  const enquireHref = `https://wa.me/${window.CURATOR_WA}?text=${enquireMsg()}`;
+
+  const availabilityLabel = () => {
+    const tierWord = isRare ? (isAr ? 'إصدار نادر' : 'Rare Edition') : (isAr ? 'إصدار قياسي' : 'Standard Edition');
+    return isAr
+      ? `${tierWord} — ${remaining} من ${artwork.editionSize} متبقية`
+      : `${tierWord} — ${remaining} of ${artwork.editionSize} remaining`;
   };
 
   const C = { container: { maxWidth: '1360px', margin: '0 auto', padding: '0 clamp(20px,4vw,72px)' } };
   const bodyFont = isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif";
 
   return (
-    <div style={{ background: tweaks.bg || '#1b1916', color: '#f0ead8', paddingTop: '72px' }}>
+    <div style={{ background: tweaks.bg || '#1b1916', color: '#f0ead8', paddingTop: '108px' }}>
 
       {/* Breadcrumb */}
       <div style={{ ...C.container, paddingTop: '32px' }}>
         <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-          <button onClick={() => navigate('collection')} style={{ background: 'none', border: 'none', cursor: 'pointer', fontFamily: bodyFont, fontSize: '11px', color: 'rgba(240,234,216,0.35)', padding: 0 }}>
+          <button onClick={() => navigate('collection')} style={{ background: 'none', border: 'none', cursor: 'pointer', fontFamily: bodyFont, fontSize: '11px', color: 'rgba(240,234,216,0.55)', padding: 0 }}>
             {isAr ? 'المجموعة' : 'Collection'}
           </button>
           <span style={{ color: 'rgba(240,234,216,0.2)', fontSize: '11px' }}>·</span>
@@ -87,7 +114,7 @@ function ArtworkDetailPage({ navigate, params = {}, addToCart, tweaks = {}, lang
 
           {/* Image */}
           <FadeUp>
-            <div style={{ position: 'sticky', top: '96px' }}>
+            <div style={{ position: 'sticky', top: '130px' }}>
               <div style={{
                 aspectRatio: artwork.landscape ? '4/3' : '4/5', overflow: 'hidden', background: '#242018',
                 boxShadow: isRare ? '0 0 0 1px rgba(196,163,85,0.2), 0 24px 64px rgba(0,0,0,0.4)' : '0 24px 64px rgba(0,0,0,0.3)',
@@ -120,11 +147,11 @@ function ArtworkDetailPage({ navigate, params = {}, addToCart, tweaks = {}, lang
               {/* Edition progress */}
               <div style={{ marginTop: '16px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-                  <span style={{ fontFamily: bodyFont, fontSize: '11px', color: 'rgba(240,234,216,0.4)' }}>
-                    {isAr ? `الإصدار ${artwork.editionsSold} من ${artwork.editionSize}` : `Edition ${artwork.editionsSold} of ${artwork.editionSize}`}
+                  <span style={{ fontFamily: bodyFont, fontSize: '11px', color: 'rgba(240,234,216,0.55)' }}>
+                    {artwork.editionsSold} {isAr ? 'مباعة' : 'sold'}
                   </span>
-                  <span style={{ fontFamily: bodyFont, fontSize: '11px', color: remaining <= 2 ? '#c4a355' : 'rgba(240,234,216,0.4)' }}>
-                    {remaining} {isAr ? 'متبقية' : 'remaining'}
+                  <span style={{ fontFamily: bodyFont, fontSize: '11px', color: remaining <= 2 ? '#c4a355' : 'rgba(240,234,216,0.55)' }}>
+                    {isAr ? `${remaining} من ${artwork.editionSize} متبقية` : `${remaining} of ${artwork.editionSize} remaining`}
                   </span>
                 </div>
                 <div style={{ height: '2px', background: 'rgba(240,234,216,0.08)', borderRadius: '1px', overflow: 'hidden' }}>
@@ -148,6 +175,11 @@ function ArtworkDetailPage({ navigate, params = {}, addToCart, tweaks = {}, lang
                 <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(32px,4vw,56px)', fontWeight: 300, margin: '0 0 16px', lineHeight: 1.1 }}>
                   {isAr ? artwork.titleAr : artwork.title}
                 </h1>
+                {/* Edition availability badge */}
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '9px', padding: '7px 14px', marginBottom: '18px', border: `1px solid ${(isRare || remaining <= 2) ? 'rgba(196,163,85,0.35)' : 'rgba(240,234,216,0.14)'}`, background: (isRare || remaining <= 2) ? 'rgba(196,163,85,0.06)' : 'rgba(240,234,216,0.02)' }}>
+                  <span style={{ width: 7, height: 7, borderRadius: '50%', background: (isRare || remaining <= 2) ? '#c4a355' : 'rgba(240,234,216,0.5)', flexShrink: 0 }} />
+                  <span style={{ fontFamily: bodyFont, fontSize: '11px', letterSpacing: isAr ? 0 : '0.1em', textTransform: isAr ? 'none' : 'uppercase', color: (isRare || remaining <= 2) ? '#c4a355' : 'rgba(240,234,216,0.6)' }}>{availabilityLabel()}</span>
+                </div>
                 <p style={{ fontFamily: bodyFont, fontSize: '14px', color: 'rgba(240,234,216,0.5)', lineHeight: 1.85, margin: 0, fontWeight: 300 }}>
                   {isAr ? artwork.descriptionAr : artwork.description}
                 </p>
@@ -157,20 +189,20 @@ function ArtworkDetailPage({ navigate, params = {}, addToCart, tweaks = {}, lang
 
               {/* Edition info box */}
               <div style={{ padding: '20px 24px', background: isRare ? 'rgba(196,163,85,0.05)' : 'rgba(240,234,216,0.03)', border: `1px solid ${isRare ? 'rgba(196,163,85,0.2)' : 'rgba(240,234,216,0.07)'}`, display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                <p style={{ fontFamily: bodyFont, fontSize: '10px', letterSpacing: isAr ? 0 : '0.16em', textTransform: isAr ? 'none' : 'uppercase', color: isRare ? '#c4a355' : 'rgba(240,234,216,0.35)', margin: '0 0 4px' }}>
+                <p style={{ fontFamily: bodyFont, fontSize: '10px', letterSpacing: isAr ? 0 : '0.16em', textTransform: isAr ? 'none' : 'uppercase', color: isRare ? '#c4a355' : 'rgba(240,234,216,0.55)', margin: '0 0 4px' }}>
                   {isAr ? 'الإصدار' : 'Edition'}
                 </p>
                 {[
                   { label: isAr ? 'النوع' : 'Tier', val: isRare ? (isAr ? 'إصدار نادر' : 'Rare Edition') : (isAr ? 'إصدار قياسي' : 'Standard Edition') },
                   { label: isAr ? 'حجم الإصدار' : 'Edition size', val: isAr ? `${artwork.editionSize} نسخ لكل حجم` : `${artwork.editionSize} copies per size` },
-                  { label: isAr ? 'الإصدار التالي' : 'Next available', val: isAr ? `الإصدار ${nextEdition} من ${artwork.editionSize}` : `Edition ${nextEdition} of ${artwork.editionSize}` },
-                  { label: isAr ? 'متبقية' : 'Remaining', val: isAr ? `${remaining} نسخة` : `${remaining} copies`, highlight: remaining <= 2 },
+                  { label: isAr ? 'الإصدار التالي (رقم الطبعة)' : 'Next print (edition no.)', val: isAr ? `رقم ${nextEdition}` : `No. ${nextEdition}` },
+                  { label: isAr ? 'متبقية' : 'Remaining', val: isAr ? `${remaining} من ${artwork.editionSize}` : `${remaining} of ${artwork.editionSize}`, highlight: remaining <= 2 },
                   { label: isAr ? 'الوسيط' : 'Medium', val: isAr ? 'أحبار أرشيفية على هانيموله' : 'Archival pigment on Hahnemühle' },
                   { label: isAr ? 'الشهادة' : 'Certificate', val: isAr ? 'مرقمة وموقعة' : 'Numbered & signed' },
                 ].map(row => (
                   <div key={row.label} style={{ display: 'flex', justifyContent: 'space-between', gap: '16px' }}>
-                    <span style={{ fontFamily: bodyFont, fontSize: '11px', color: 'rgba(240,234,216,0.35)' }}>{row.label}</span>
-                    <span style={{ fontFamily: bodyFont, fontSize: '11px', color: row.highlight ? '#c4a355' : 'rgba(240,234,216,0.65)', textAlign: 'right' }}>{row.val}</span>
+                    <span style={{ fontFamily: bodyFont, fontSize: '11px', color: 'rgba(240,234,216,0.55)' }}>{row.label}</span>
+                    <span style={{ fontFamily: bodyFont, fontSize: '11px', color: row.highlight ? '#c4a355' : 'rgba(240,234,216,0.7)', textAlign: 'right' }}>{row.val}</span>
                   </div>
                 ))}
               </div>
@@ -179,7 +211,7 @@ function ArtworkDetailPage({ navigate, params = {}, addToCart, tweaks = {}, lang
 
               {/* Size selector */}
               <div>
-                <p style={{ fontFamily: bodyFont, fontSize: '10px', letterSpacing: isAr ? 0 : '0.18em', textTransform: isAr ? 'none' : 'uppercase', color: 'rgba(240,234,216,0.4)', marginBottom: '14px' }}>
+                <p style={{ fontFamily: bodyFont, fontSize: '10px', letterSpacing: isAr ? 0 : '0.18em', textTransform: isAr ? 'none' : 'uppercase', color: 'rgba(240,234,216,0.55)', marginBottom: '14px' }}>
                   {isAr ? 'الحجم (سم)' : 'Size (cm)'}
                 </p>
                 <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
@@ -191,7 +223,7 @@ function ArtworkDetailPage({ navigate, params = {}, addToCart, tweaks = {}, lang
 
               {/* Framing */}
               <div>
-                <p style={{ fontFamily: bodyFont, fontSize: '10px', letterSpacing: isAr ? 0 : '0.18em', textTransform: isAr ? 'none' : 'uppercase', color: 'rgba(240,234,216,0.4)', marginBottom: '14px' }}>
+                <p style={{ fontFamily: bodyFont, fontSize: '10px', letterSpacing: isAr ? 0 : '0.18em', textTransform: isAr ? 'none' : 'uppercase', color: 'rgba(240,234,216,0.55)', marginBottom: '14px' }}>
                   {isAr ? 'التأطير' : 'Framing'}
                 </p>
                 <div style={{ display: 'flex', gap: '10px' }}>
@@ -199,12 +231,12 @@ function ArtworkDetailPage({ navigate, params = {}, addToCart, tweaks = {}, lang
                     <button key={opt.label} onClick={() => setFramed(opt.val)} style={{ background: framed === opt.val ? 'rgba(196,163,85,0.12)' : 'transparent', border: `1px solid ${framed === opt.val ? '#c4a355' : 'rgba(240,234,216,0.15)'}`, color: framed === opt.val ? '#c4a355' : 'rgba(240,234,216,0.55)', cursor: 'pointer', padding: '10px 20px', fontFamily: bodyFont, fontSize: '12px', transition: 'all 0.2s' }}>{opt.label}</button>
                   ))}
                 </div>
-                {framed && <p style={{ fontFamily: bodyFont, fontSize: '11px', color: 'rgba(240,234,216,0.3)', marginTop: '10px' }}>{isAr ? 'إطار صندوقي متحفي · بلوط طبيعي · زجاج واقٍ' : 'Museum box frame · natural oak · UV-protective glass'}</p>}
+                {framed && <p style={{ fontFamily: bodyFont, fontSize: '11px', color: 'rgba(240,234,216,0.5)', marginTop: '10px' }}>{isAr ? 'إطار صندوقي متحفي · بلوط طبيعي · زجاج واقٍ' : 'Museum box frame · natural oak · UV-protective glass'}</p>}
               </div>
 
               {/* Frame color */}
               <div>
-                <p style={{ fontFamily: bodyFont, fontSize: '10px', letterSpacing: isAr ? 0 : '0.18em', textTransform: isAr ? 'none' : 'uppercase', color: 'rgba(240,234,216,0.4)', marginBottom: '14px' }}>
+                <p style={{ fontFamily: bodyFont, fontSize: '10px', letterSpacing: isAr ? 0 : '0.18em', textTransform: isAr ? 'none' : 'uppercase', color: 'rgba(240,234,216,0.55)', marginBottom: '14px' }}>
                   {isAr ? 'لون الإطار' : 'Frame Colour'}
                 </p>
                 {framed ? (
@@ -223,23 +255,84 @@ function ArtworkDetailPage({ navigate, params = {}, addToCart, tweaks = {}, lang
                 )}
               </div>
 
-              {/* Price + CTA */}
+              {/* Price + tier-aware CTA */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px' }}>
-                  <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '38px', fontWeight: 300 }}>EGP {price.toLocaleString()}</span>
-                  <span style={{ fontFamily: bodyFont, fontSize: '11px', color: 'rgba(240,234,216,0.3)' }}>{isAr ? 'شامل الضريبة' : 'inc. VAT'}</span>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px', flexWrap: 'wrap' }}>
+                  <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '38px', fontWeight: 300 }}>{window.formatPrice(price, currency).primary}</span>
+                  <span style={{ fontFamily: bodyFont, fontSize: '11px', color: 'rgba(240,234,216,0.5)' }}>{isAr ? 'شامل الضريبة' : 'inc. VAT'}</span>
                   {isRare && <span style={{ fontFamily: bodyFont, fontSize: '10px', color: 'rgba(196,163,85,0.6)', marginLeft: '4px' }}>◆</span>}
                 </div>
-                <button onClick={handleAddToCart} style={{ background: added ? 'rgba(196,163,85,0.15)' : '#c4a355', color: added ? '#c4a355' : '#1b1916', border: added ? '1px solid #c4a355' : 'none', cursor: 'pointer', padding: '16px', fontFamily: bodyFont, fontSize: '11px', letterSpacing: isAr ? 0 : '0.18em', textTransform: isAr ? 'none' : 'uppercase', fontWeight: 500, transition: 'all 0.3s' }}>
-                  {added ? (isAr ? '✓ تمت الإضافة' : '✓ Added to Selection') : (isAr ? 'أضف إلى الاختيار' : 'Add to Selection')}
+                {window.formatPrice(price, currency).secondary && (
+                  <p style={{ fontFamily: bodyFont, fontSize: '12px', color: 'rgba(240,234,216,0.5)', margin: 0 }}>{window.formatPrice(price, currency).secondary}</p>
+                )}
+
+                {routing === 'direct' ? (
+                  <>
+                    {/* Tier 1 — direct cart checkout */}
+                    <button onClick={handleAddToCart} style={{ width: '100%', background: added ? 'rgba(196,163,85,0.15)' : '#c4a355', color: added ? '#c4a355' : '#1b1916', border: added ? '1px solid #c4a355' : 'none', cursor: 'pointer', padding: '16px', fontFamily: bodyFont, fontSize: '11px', letterSpacing: isAr ? 0 : '0.18em', textTransform: isAr ? 'none' : 'uppercase', fontWeight: 500, transition: 'all 0.3s' }}>
+                      {added ? (isAr ? '✓ تمت الإضافة إلى السلة' : '✓ Added to Cart') : (isAr ? 'أضف إلى السلة' : 'Add to Cart')}
+                    </button>
+                    <p style={{ fontFamily: bodyFont, fontSize: '12px', color: 'rgba(240,234,216,0.4)', textAlign: 'center', margin: '2px 0 0', lineHeight: 1.7 }}>
+                      {isAr ? 'تفكّر في عدة قطع أو تأطير مخصّص أو تودّ معرفة المزيد عن الفنان؟ ' : 'Considering multiple pieces, custom framing, or want to know more about the artist? '}
+                      <a href={enquireHref} target="_blank" rel="noopener noreferrer" style={{ color: '#c4a355', textDecoration: 'underline', textUnderlineOffset: '3px' }}>{isAr ? 'تحدّث مع أمين المجموعة' : 'Speak with a curator'}</a>
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    {/* Tier 2 — concierge-primary with cart fallback */}
+                    <p style={{ fontFamily: bodyFont, fontSize: '12px', color: 'rgba(196,163,85,0.7)', margin: '0 0 2px', lineHeight: 1.65 }}>
+                      {isRare
+                        ? (isAr ? 'تُدار القطع النادرة عبر أمين المجموعة لضمان سلامة الإصدار والإجابة عن أي سؤال حول العمل.' : 'Rare Edition pieces are handled through our curator to ensure edition integrity and answer any questions about the work.')
+                        : (isAr ? 'تُرتَّب القطع المؤطّرة مع أمين المجموعة لتأكيد خيارات التأطير والمواد والتوصيل الآمن.' : 'Framed pieces are arranged with our curator to confirm framing options, materials, and safe delivery.')}
+                    </p>
+                    <a href={reserveHref} target="_blank" rel="noopener noreferrer" style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', padding: '16px', background: '#c4a355', color: '#1b1916', border: 'none', fontFamily: bodyFont, fontSize: '11px', letterSpacing: isAr ? 0 : '0.18em', textTransform: isAr ? 'none' : 'uppercase', textDecoration: 'none', fontWeight: 500 }}>
+                      <Icon.WA /> {isAr ? 'احجز عبر أمين المجموعة' : 'Reserve Through Curator'}
+                    </a>
+                    <button onClick={handleAddToCart} style={{ width: '100%', background: 'transparent', color: added ? '#c4a355' : 'rgba(240,234,216,0.7)', border: `1px solid ${added ? '#c4a355' : 'rgba(240,234,216,0.22)'}`, cursor: 'pointer', padding: '15px', fontFamily: bodyFont, fontSize: '11px', letterSpacing: isAr ? 0 : '0.15em', textTransform: isAr ? 'none' : 'uppercase', fontWeight: 500, transition: 'all 0.3s' }}>
+                      {added ? (isAr ? '✓ تمت الإضافة إلى السلة' : '✓ Added to Cart') : (isAr ? 'أضف إلى السلة' : 'Add to Cart')}
+                    </button>
+                  </>
+                )}
+              </div>
+
+              {/* Photographer blurb */}
+              {artistObj && (
+                <>
+                  <div style={{ height: '1px', background: 'rgba(240,234,216,0.08)' }} />
+                  <div>
+                    <p style={{ fontFamily: bodyFont, fontSize: '10px', letterSpacing: isAr ? 0 : '0.18em', textTransform: isAr ? 'none' : 'uppercase', color: 'rgba(240,234,216,0.55)', margin: '0 0 12px' }}>{isAr ? 'المصوّر' : 'The Photographer'}</p>
+                    <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '22px', fontWeight: 400, margin: '0 0 10px' }}>{artistObj.name}</p>
+                    <p style={{ fontFamily: bodyFont, fontSize: '13px', color: 'rgba(240,234,216,0.58)', lineHeight: 1.8, margin: '0 0 14px', fontWeight: 300 }}>
+                      {((isAr ? artistObj.bioAr : artistObj.bio) || '').split('. ').slice(0, 2).join('. ').replace(/\.?$/, '.')}
+                    </p>
+                    <button onClick={() => navigate('artist', { id: artwork.artistId })} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, fontFamily: bodyFont, fontSize: '11px', letterSpacing: isAr ? 0 : '0.12em', textTransform: isAr ? 'none' : 'uppercase', color: '#c4a355' }}>
+                      {isAr ? 'الملف الكامل للفنان ←' : 'View full artist profile →'}
+                    </button>
+                  </div>
+                </>
+              )}
+
+              {/* Print Details expandable */}
+              <div style={{ borderTop: '1px solid rgba(240,234,216,0.08)' }}>
+                <button onClick={() => setDetailsOpen(o => !o)} style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'none', border: 'none', cursor: 'pointer', padding: '18px 0', fontFamily: bodyFont, fontSize: '11px', letterSpacing: isAr ? 0 : '0.16em', textTransform: isAr ? 'none' : 'uppercase', color: 'rgba(240,234,216,0.65)' }}>
+                  <span>{isAr ? 'تفاصيل الطباعة' : 'Print Details'}</span>
+                  <span style={{ fontSize: '16px', color: 'rgba(240,234,216,0.4)' }}>{detailsOpen ? '−' : '+'}</span>
                 </button>
-                <a href={`https://api.whatsapp.com/send?phone=201001161776&text=${waMessage()}`} target="_blank" rel="noopener noreferrer" style={{ display: 'block', textAlign: 'center', padding: '14px', background: 'transparent', border: '1px solid rgba(240,234,216,0.15)', color: 'rgba(240,234,216,0.6)', fontFamily: bodyFont, fontSize: '11px', letterSpacing: isAr ? 0 : '0.15em', textTransform: isAr ? 'none' : 'uppercase', textDecoration: 'none' }}>
-                  {isAr ? 'استفسر عبر واتساب' : 'Enquire via WhatsApp'}
-                </a>
-                {isRare && (
-                  <p style={{ fontFamily: bodyFont, fontSize: '11px', color: 'rgba(196,163,85,0.5)', textAlign: 'center', margin: 0, lineHeight: 1.6 }}>
-                    {isAr ? 'هذا عمل نادر. ٥ نسخ فقط من كل حجم، لن تُعاد طباعتها أبداً.' : 'This is a Rare Edition. 5 copies per size only, never to be reprinted.'}
-                  </p>
+                {detailsOpen && (
+                  <div style={{ paddingBottom: '10px', display: 'flex', flexDirection: 'column', gap: '13px' }}>
+                    {[
+                      { l: isAr ? 'الورق' : 'Paper', v: isAr ? 'ورق فني أرشيفي (هانيموله)' : 'Archival fine art paper (Hahnemühle)' },
+                      { l: isAr ? 'الحافة' : 'Border', v: isAr ? 'حافة بيضاء ٣ سم على جميع الجوانب' : '3 cm white border on all sides' },
+                      { l: isAr ? 'التوقيع' : 'Signature', v: isAr ? "نسخة من توقيع المصوّر" : "Photographer's signature reproduction" },
+                      { l: isAr ? 'الشهادة' : 'Certificate', v: isAr ? 'شهادة أصالة مُرفقة' : 'Certificate of Authenticity included' },
+                      { l: isAr ? 'التوصيل' : 'Delivery', v: framed ? (isAr ? 'صندوق مخصّص للقطع المؤطّرة' : 'Custom crate for framed pieces') : (isAr ? 'ملفوفة في أنبوب أرشيفي' : 'Rolled in an archival tube') },
+                    ].map(row => (
+                      <div key={row.l} style={{ display: 'flex', justifyContent: 'space-between', gap: '16px' }}>
+                        <span style={{ fontFamily: bodyFont, fontSize: '11px', color: 'rgba(240,234,216,0.55)' }}>{row.l}</span>
+                        <span style={{ fontFamily: bodyFont, fontSize: '11px', color: 'rgba(240,234,216,0.7)', textAlign: 'right', maxWidth: '62%' }}>{row.v}</span>
+                      </div>
+                    ))}
+                  </div>
                 )}
               </div>
             </div>
@@ -252,12 +345,12 @@ function ArtworkDetailPage({ navigate, params = {}, addToCart, tweaks = {}, lang
         <section style={{ ...C.container, paddingBottom: 'clamp(72px,9vw,120px)' }}>
           <div style={{ height: '1px', background: 'rgba(240,234,216,0.07)', marginBottom: 'clamp(40px,5vw,64px)' }} />
           <FadeUp>
-            <p style={{ fontFamily: isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif", fontSize: '10px', letterSpacing: isAr ? 0 : '0.22em', textTransform: isAr ? 'none' : 'uppercase', color: 'rgba(240,234,216,0.3)', marginBottom: '32px' }}>
+            <p style={{ fontFamily: isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif", fontSize: '10px', letterSpacing: isAr ? 0 : '0.22em', textTransform: isAr ? 'none' : 'uppercase', color: 'rgba(240,234,216,0.5)', marginBottom: '32px' }}>
               {isAr ? `المزيد من أعمال ${artwork.artist}` : `More by ${artwork.artist}`}
             </p>
           </FadeUp>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: 'clamp(20px,3vw,40px)' }}>
-            {relatedWorks.map((w, i) => <FadeUp key={w.id} delay={i * 0.1}><ProductCard artwork={w} onNavigate={navigate} lang={lang} /></FadeUp>)}
+            {relatedWorks.map((w, i) => <FadeUp key={w.id} delay={i * 0.1}><ProductCard artwork={w} onNavigate={navigate} lang={lang} currency={currency} /></FadeUp>)}
           </div>
         </section>
       )}
@@ -295,7 +388,7 @@ function ArtworkDetailPage({ navigate, params = {}, addToCart, tweaks = {}, lang
               background: '#fafaf7',
               boxShadow: '0 30px 80px rgba(0,0,0,0.5)',
             }}>
-              <img src="src/assets/room-scene.png" alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+              <img src={(window.__resources&&window.__resources.roomScene)||'src/assets/room-scene.png'} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
 
               {/* Artwork on wall — anchored so its bottom sits at the typical hanging eye-level above sofa.
                   Sofa back ≈ y=62% in the source image; hang the artwork so its bottom is ~y=58%. */}

@@ -94,7 +94,7 @@ function PrivacyPage({ navigate, tweaks = {}, lang = 'EN' }) {
   const c = isAr ? ar : en;
 
   return (
-    <div style={{ background: tweaks.bg || '#1b1916', color: '#f0ead8', paddingTop: '72px' }}>
+    <div style={{ background: tweaks.bg || '#1b1916', color: '#f0ead8', paddingTop: '108px' }}>
       <section style={{ padding: 'clamp(56px,7vw,96px) clamp(20px,5vw,72px) clamp(32px,4vw,56px)', maxWidth: '840px', margin: '0 auto' }}>
         <FadeUp>
           <p style={{ fontFamily: bodyFont, fontSize: '10px', letterSpacing: isAr ? 0 : '0.22em', textTransform: isAr ? 'none' : 'uppercase', color: 'rgba(196,163,85,0.8)', marginBottom: '16px' }}>{c.label}</p>

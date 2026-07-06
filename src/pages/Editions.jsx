@@ -76,7 +76,7 @@ function EditionsPage({ navigate, tweaks = {}, lang = 'EN' }) {
   const c = isAr ? arContent : enContent;
 
   return (
-    <div style={{ background: tweaks.bg || '#1b1916', color: '#f0ead8', paddingTop: '72px' }}>
+    <div style={{ background: tweaks.bg || '#1b1916', color: '#f0ead8', paddingTop: '108px' }}>
 
       {/* Hero */}
       <div style={{ maxWidth: '1100px', margin: '0 auto', padding: 'clamp(56px,8vw,112px) clamp(20px,5vw,72px) clamp(40px,5vw,64px)' }}>

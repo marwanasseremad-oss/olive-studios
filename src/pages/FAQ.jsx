@@ -65,7 +65,7 @@ function FAQPage({ navigate, tweaks = {}, lang = 'EN' }) {
             <div style={{ marginTop: '64px', ...PAGE.card, maxWidth: '560px', textAlign: 'center', padding: '40px' }}>
               <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '22px', fontWeight: 300, color: '#f0ead8', margin: '0 0 12px' }}>{stillQ}</p>
               <p style={{ ...PAGE.body, margin: '0 0 24px' }}>{stillD}</p>
-              <a href="https://api.whatsapp.com/send?phone=201001161776" target="_blank" rel="noopener noreferrer" style={PAGE.goldBtn}>{stillBtn}</a>
+              <a href="https://wa.me/+201234567890" target="_blank" rel="noopener noreferrer" style={PAGE.goldBtn}>{stillBtn}</a>
             </div>
           </FadeUp>
         </div>

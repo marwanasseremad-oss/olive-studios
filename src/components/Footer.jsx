@@ -5,7 +5,7 @@ function Footer({ navigate, lang = 'EN' }) {
   const [submitted, setSubmitted] = React.useState(false);
 
   const col = { display: 'flex', flexDirection: 'column', gap: '14px' };
-  const colHead = { fontFamily: "'Jost', sans-serif", fontSize: '10px', letterSpacing: '0.18em', textTransform: 'uppercase', color: 'rgba(240,234,216,0.35)', marginBottom: '4px' };
+  const colHead = { fontFamily: "'Jost', sans-serif", fontSize: '10px', letterSpacing: '0.18em', textTransform: 'uppercase', color: 'rgba(240,234,216,0.5)', marginBottom: '4px' };
   const colLink = { fontFamily: "'Jost', sans-serif", fontSize: '13px', color: 'rgba(240,234,216,0.55)', textDecoration: 'none', cursor: 'pointer', transition: 'color 0.25s', letterSpacing: '0.02em' };
 
   return (
@@ -16,7 +16,7 @@ function Footer({ navigate, lang = 'EN' }) {
           {/* Brand */}
           <div style={{ ...col }}>
             <img src={window.__resources&&window.__resources.oliveLogo||'src/assets/olive-logo.png'} alt="Olive Studios" style={{ height: '100px', width: 'auto', maxWidth: '220px', objectFit: 'contain', filter: 'brightness(0) invert(1)', opacity: 0.85, cursor: 'pointer', marginBottom: '8px' }} onClick={() => navigate('home')} />
-            <p style={{ fontFamily: "'Jost', sans-serif", fontSize: '12px', color: 'rgba(240,234,216,0.35)', lineHeight: 1.7, maxWidth: '200px' }}>{t('footer.tagline')}</p>
+            <p style={{ fontFamily: "'Jost', sans-serif", fontSize: '12px', color: 'rgba(240,234,216,0.55)', lineHeight: 1.7, maxWidth: '200px' }}>{t('footer.tagline')}</p>
             <div style={{ display: 'flex', gap: '20px', marginTop: '8px', alignItems: 'center' }}>
               {[
                 { href: 'https://www.instagram.com/_olivestudios/', label: 'Instagram', svg: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg> },
@@ -24,9 +24,9 @@ function Footer({ navigate, lang = 'EN' }) {
                 { href: 'https://www.facebook.com/olivestudios', label: 'Facebook', svg: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg> },
               ].map(s => (
                 <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label}
-                  style={{ color: 'rgba(240,234,216,0.4)', textDecoration: 'none', display: 'flex', alignItems: 'center', transition: 'color 0.2s' }}
+                  style={{ color: 'rgba(240,234,216,0.55)', textDecoration: 'none', display: 'flex', alignItems: 'center', transition: 'color 0.2s' }}
                   onMouseEnter={e => e.currentTarget.style.color = '#c4a355'}
-                  onMouseLeave={e => e.currentTarget.style.color = 'rgba(240,234,216,0.4)'}>
+                  onMouseLeave={e => e.currentTarget.style.color = 'rgba(240,234,216,0.55)'}>
                   {s.svg}
                 </a>
               ))}
@@ -66,7 +66,7 @@ function Footer({ navigate, lang = 'EN' }) {
           {/* Newsletter */}
           <div style={{ ...col }}>
             <p style={colHead}>{t('footer.newsletter')}</p>
-            <p style={{ fontFamily: "'Jost', sans-serif", fontSize: '12px', color: 'rgba(240,234,216,0.4)', lineHeight: 1.7 }}>{t('footer.newsletterDesc')}</p>
+            <p style={{ fontFamily: "'Jost', sans-serif", fontSize: '12px', color: 'rgba(240,234,216,0.55)', lineHeight: 1.7 }}>{t('footer.newsletterDesc')}</p>
             {submitted ? (
               <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '16px', fontStyle: 'italic', color: '#c4a355' }}>{t('footer.newsletterThanks')}</p>
             ) : (
@@ -80,13 +80,13 @@ function Footer({ navigate, lang = 'EN' }) {
         </div>
 
         <div style={{ borderTop: '1px solid rgba(240,234,216,0.06)', paddingTop: '28px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
-          <p style={{ fontFamily: "'Jost', sans-serif", fontSize: '11px', color: 'rgba(240,234,216,0.25)', margin: 0 }}>{t('footer.copyright')}</p>
+          <p style={{ fontFamily: "'Jost', sans-serif", fontSize: '11px', color: 'rgba(240,234,216,0.5)', margin: 0 }}>{t('footer.copyright')}</p>
           <div style={{ display: 'flex', gap: '24px' }}>
             {[{ label: t('footer.privacy'), page: 'privacy' }, { label: t('footer.terms'), page: 'terms' }].map(l => (
               <span key={l.page} onClick={() => navigate(l.page)}
-                style={{ fontFamily: "'Jost', sans-serif", fontSize: '11px', color: 'rgba(240,234,216,0.25)', cursor: 'pointer', transition: 'color 0.2s' }}
-                onMouseEnter={e => e.currentTarget.style.color = 'rgba(240,234,216,0.5)'}
-                onMouseLeave={e => e.currentTarget.style.color = 'rgba(240,234,216,0.25)'}>{l.label}</span>
+                style={{ fontFamily: "'Jost', sans-serif", fontSize: '11px', color: 'rgba(240,234,216,0.5)', cursor: 'pointer', transition: 'color 0.2s' }}
+                onMouseEnter={e => e.currentTarget.style.color = 'rgba(240,234,216,0.8)'}
+                onMouseLeave={e => e.currentTarget.style.color = 'rgba(240,234,216,0.5)'}>{l.label}</span>
             ))}
           </div>
         </div>

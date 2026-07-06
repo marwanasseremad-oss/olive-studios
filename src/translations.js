@@ -4,7 +4,7 @@ window.TRANSLATIONS = {
     // Header/Nav
     'nav.collection': 'Collection', 'nav.artists': 'Artists', 'nav.about': 'About', 'nav.discover': 'Discover',
     // Hero
-    'hero.tagline': 'Cairo · Alexandria · Siwa — Est. 2024',
+    'hero.tagline': 'Cairo · Alexandria · Siwa — Est. 2026',
     'hero.title1': 'Art of the Region.',
     'hero.title2': 'For the World.',
     'hero.subtitle': 'Museum-grade limited edition prints by Egypt\'s finest photographers.',
@@ -148,7 +148,7 @@ window.TRANSLATIONS = {
 
   AR: {
     'nav.collection': 'المجموعة', 'nav.artists': 'الفنانون', 'nav.about': 'من نحن', 'nav.discover': 'اكتشف',
-    'hero.tagline': 'القاهرة · الإسكندرية · سيوة — تأسست 2024',
+    'hero.tagline': 'القاهرة · الإسكندرية · سيوة — تأسست 2026',
     'hero.title1': 'طبعات فوتوغرافية بجودة المتاحف',
     'hero.title2': 'من مصر والبحر المتوسط.',
     'hero.subtitle': 'طبعات محدودة من أبرز مصوري المنطقة. جودة أرشيفية. إصدارات موثقة. توصيل مميز.',
