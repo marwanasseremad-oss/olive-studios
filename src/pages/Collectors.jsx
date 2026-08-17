@@ -53,7 +53,7 @@ function CollectorsPage({ navigate, tweaks = {}, lang = 'EN' }) {
             {content.title}<br /><em style={{ fontStyle: 'italic' }}>{content.italic}</em>
           </h1>
           <p style={{ ...PAGE.body, maxWidth: '500px', margin: '0 auto 12px' }}>{content.desc}</p>
-          <p style={{ fontFamily: isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif", fontSize: '11px', letterSpacing: isAr ? 0 : '0.12em', color: 'rgba(196,163,85,0.6)', marginBottom: '48px' }}>{content.launching}</p>
+          <p style={{ fontFamily: isAr ? "'IBM Plex Sans Arabic', sans-serif" : "'Jost', sans-serif", fontSize: '11px', letterSpacing: isAr ? 0 : '0.12em', color: 'rgba(196,163,85,0.6)', marginBottom: '48px' }}>{content.launching}</p>
           {joined ? (
             <div style={{ ...PAGE.card, maxWidth: '400px', margin: '0 auto', padding: '40px', textAlign: 'center' }}>
               <span style={{ color: '#c4a355', display: 'flex', justifyContent: 'center', marginBottom: '16px' }}><Icon.Gift /></span>
@@ -63,11 +63,11 @@ function CollectorsPage({ navigate, tweaks = {}, lang = 'EN' }) {
           ) : (
             <form onSubmit={e => { e.preventDefault(); if (email) setJoined(true); }} style={{ maxWidth: '380px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <input type="text" placeholder={content.namePlaceholder} value={name} onChange={e => setName(e.target.value)}
-                style={{ width: '100%', background: 'rgba(240,234,216,0.06)', border: '1px solid rgba(240,234,216,0.12)', color: '#f0ead8', fontFamily: isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif", fontSize: '13px', padding: '14px 16px', outline: 'none', boxSizing: 'border-box' }} />
+                style={{ width: '100%', background: 'rgba(240,234,216,0.06)', border: '1px solid rgba(240,234,216,0.12)', color: '#f0ead8', fontFamily: isAr ? "'IBM Plex Sans Arabic', sans-serif" : "'Jost', sans-serif", fontSize: '13px', padding: '14px 16px', outline: 'none', boxSizing: 'border-box' }} />
               <input type="email" required placeholder={content.emailPlaceholder} value={email} onChange={e => setEmail(e.target.value)}
-                style={{ width: '100%', background: 'rgba(240,234,216,0.06)', border: '1px solid rgba(240,234,216,0.12)', color: '#f0ead8', fontFamily: isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif", fontSize: '13px', padding: '14px 16px', outline: 'none', boxSizing: 'border-box' }} />
+                style={{ width: '100%', background: 'rgba(240,234,216,0.06)', border: '1px solid rgba(240,234,216,0.12)', color: '#f0ead8', fontFamily: isAr ? "'IBM Plex Sans Arabic', sans-serif" : "'Jost', sans-serif", fontSize: '13px', padding: '14px 16px', outline: 'none', boxSizing: 'border-box' }} />
               <button type="submit" style={{ ...PAGE.goldBtn, width: '100%', padding: '14px' }}>{content.joinBtn}</button>
-              <p style={{ fontFamily: isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif", fontSize: '10px', color: 'rgba(240,234,216,0.25)', textAlign: 'center' }}>{content.privacy}</p>
+              <p style={{ fontFamily: isAr ? "'IBM Plex Sans Arabic', sans-serif" : "'Jost', sans-serif", fontSize: '10px', color: 'rgba(240,234,216,0.25)', textAlign: 'center' }}>{content.privacy}</p>
             </form>
           )}
         </FadeUp>
@@ -105,7 +105,7 @@ function CollectorsPage({ navigate, tweaks = {}, lang = 'EN' }) {
               {content.stats.map(s => (
                 <div key={s.l} style={{ textAlign: 'center' }}>
                   <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '40px', fontWeight: 300, color: '#f0ead8', display: 'block', lineHeight: 1 }}>{s.n}</span>
-                  <span style={{ fontFamily: isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif", fontSize: '11px', color: 'rgba(240,234,216,0.35)' }}>{s.l}</span>
+                  <span style={{ fontFamily: isAr ? "'IBM Plex Sans Arabic', sans-serif" : "'Jost', sans-serif", fontSize: '11px', color: 'rgba(240,234,216,0.35)' }}>{s.l}</span>
                 </div>
               ))}
             </div>

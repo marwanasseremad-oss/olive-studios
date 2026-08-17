@@ -1,7 +1,7 @@
 
 function HowItWorksPage({ navigate, lang = 'EN' }) {
   const isAr = lang === 'AR';
-  const bodyFont = isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif";
+  const bodyFont = isAr ? "'IBM Plex Sans Arabic', sans-serif" : "'Jost', sans-serif";
   const gold = '#c4a355';
 
   React.useEffect(() => { window.scrollTo({ top: 0 }); }, []);

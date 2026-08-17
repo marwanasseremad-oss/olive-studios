@@ -35,8 +35,8 @@ function BespokePage({ navigate, tweaks = {}, lang = 'EN' }) {
 
   const content = c[lang] || c.EN;
   const fl = content.fields;
-  const inputStyle = { width: '100%', background: 'rgba(240,234,216,0.04)', border: 'none', borderBottom: '1px solid rgba(240,234,216,0.15)', color: '#f0ead8', fontFamily: isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif", fontSize: '13px', padding: '12px 4px', outline: 'none', boxSizing: 'border-box' };
-  const lbl = { fontFamily: isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif", fontSize: '10px', letterSpacing: isAr ? 0 : '0.16em', textTransform: isAr ? 'none' : 'uppercase', color: 'rgba(240,234,216,0.4)', display: 'block', marginBottom: '8px' };
+  const inputStyle = { width: '100%', background: 'rgba(240,234,216,0.04)', border: 'none', borderBottom: '1px solid rgba(240,234,216,0.15)', color: '#f0ead8', fontFamily: isAr ? "'IBM Plex Sans Arabic', sans-serif" : "'Jost', sans-serif", fontSize: '13px', padding: '12px 4px', outline: 'none', boxSizing: 'border-box' };
+  const lbl = { fontFamily: isAr ? "'IBM Plex Sans Arabic', sans-serif" : "'Jost', sans-serif", fontSize: '10px', letterSpacing: isAr ? 0 : '0.16em', textTransform: isAr ? 'none' : 'uppercase', color: 'rgba(240,234,216,0.4)', display: 'block', marginBottom: '8px' };
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -74,15 +74,15 @@ function BespokePage({ navigate, tweaks = {}, lang = 'EN' }) {
           <FadeUp>
             <h2 style={{ ...PAGE.h2, marginBottom: '40px' }}>{content.formTitle}</h2>
             <form onSubmit={handleSubmit} style={{ maxWidth: '640px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+              <div className="form-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
                 <div><label style={lbl}>{fl.name}</label><input required style={inputStyle} value={form.name} onChange={set('name')} /></div>
                 <div><label style={lbl}>{fl.email}</label><input type="email" required style={inputStyle} value={form.email} onChange={set('email')} /></div>
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+              <div className="form-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
                 <div><label style={lbl}>{fl.phone}</label><input style={inputStyle} value={form.phone} onChange={set('phone')} /></div>
                 <div><label style={lbl}>{fl.projectType}</label><input required placeholder={fl.projectPlaceholder} style={inputStyle} value={form.projectType} onChange={set('projectType')} /></div>
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+              <div className="form-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
                 <div><label style={lbl}>{fl.budget}</label><input placeholder={fl.budgetPlaceholder} style={inputStyle} value={form.budget} onChange={set('budget')} /></div>
                 <div><label style={lbl}>{fl.timeline}</label><input placeholder={fl.timelinePlaceholder} style={inputStyle} value={form.timeline} onChange={set('timeline')} /></div>
               </div>

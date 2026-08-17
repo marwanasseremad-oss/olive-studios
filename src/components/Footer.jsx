@@ -15,7 +15,7 @@ function Footer({ navigate, lang = 'EN' }) {
 
           {/* Brand */}
           <div style={{ ...col }}>
-            <img src={window.__resources&&window.__resources.oliveLogo||'src/assets/olive-logo.png'} alt="Olive Studios" style={{ height: '100px', width: 'auto', maxWidth: '220px', objectFit: 'contain', filter: 'brightness(0) invert(1)', opacity: 0.85, cursor: 'pointer', marginBottom: '8px' }} onClick={() => navigate('home')} />
+            <img src={window.__resources&&window.__resources.oliveLogo||'src/assets/olive-logo.png'} alt="Olive Studios" className="footer-logo" style={{ height: '100px', width: 'auto', maxWidth: '220px', objectFit: 'contain', filter: 'brightness(0) invert(1)', opacity: 0.85, cursor: 'pointer', marginBottom: '8px' }} onClick={() => navigate('home')} />
             <p style={{ fontFamily: "'Jost', sans-serif", fontSize: '12px', color: 'rgba(240,234,216,0.55)', lineHeight: 1.7, maxWidth: '200px' }}>{t('footer.tagline')}</p>
             <div style={{ display: 'flex', gap: '20px', marginTop: '8px', alignItems: 'center' }}>
               {[

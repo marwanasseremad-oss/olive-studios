@@ -151,7 +151,7 @@ Object.assign(window, { STUDIO_POSTS });
 /* ── Shared studio page chrome ───────────────────────────── */
 function StudioHero({ kicker, title, subtitle, lang }) {
   const isAr = lang === 'AR';
-  const bodyFont = isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif";
+  const bodyFont = isAr ? "'IBM Plex Sans Arabic', sans-serif" : "'Jost', sans-serif";
   return (
     <section style={{ padding: 'clamp(56px,8vw,112px) clamp(20px,4vw,72px) clamp(32px,4vw,56px)', maxWidth: '1100px', margin: '0 auto' }}>
       <FadeUp>
@@ -177,7 +177,7 @@ const STAR_BODY_AR = [
 
 function StarOfMonthPage({ navigate, tweaks = {}, lang = 'EN' }) {
   const isAr = lang === 'AR';
-  const bodyFont = isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif";
+  const bodyFont = isAr ? "'IBM Plex Sans Arabic', sans-serif" : "'Jost', sans-serif";
   const post = STUDIO_POSTS.starOfMonth[0];
   const related = (post.relatedArtworkIds || []).map(id => window.ARTWORKS.find(a => a.id === id)).filter(Boolean);
   const body = isAr ? STAR_BODY_AR : STAR_BODY_EN;
@@ -228,7 +228,7 @@ Object.assign(window, { StarOfMonthPage });
 /* ── Behind the Scenes page ──────────────────────────────── */
 function BehindScenesPage({ navigate, tweaks = {}, lang = 'EN' }) {
   const isAr = lang === 'AR';
-  const bodyFont = isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif";
+  const bodyFont = isAr ? "'IBM Plex Sans Arabic', sans-serif" : "'Jost', sans-serif";
   const posts = STUDIO_POSTS.behindScenes;
 
   return (
@@ -294,7 +294,7 @@ Object.assign(window, { BehindScenesPage });
 /* ── Guides page ─────────────────────────────────────────── */
 function GuidesPage({ navigate, tweaks = {}, lang = 'EN' }) {
   const isAr = lang === 'AR';
-  const bodyFont = isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif";
+  const bodyFont = isAr ? "'IBM Plex Sans Arabic', sans-serif" : "'Jost', sans-serif";
   const guides = STUDIO_POSTS.guides;
 
   return (

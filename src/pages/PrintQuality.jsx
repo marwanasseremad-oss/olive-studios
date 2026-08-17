@@ -110,7 +110,7 @@ function PrintQualityPage({ navigate, tweaks = {}, lang = 'EN' }) {
               <FadeUp key={i} delay={i * 0.1}>
                 <div style={{ ...PAGE.card, textAlign: 'center' }}>
                   <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '20px', color: '#f0ead8', margin: '0 0 4px' }}>{m.t}</h3>
-                  <span style={{ fontFamily: isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif", fontSize: '9px', letterSpacing: isAr ? 0 : '0.18em', textTransform: isAr ? 'none' : 'uppercase', color: '#c4a355', display: 'block', marginBottom: '16px' }}>{m.sub}</span>
+                  <span style={{ fontFamily: isAr ? "'IBM Plex Sans Arabic', sans-serif" : "'Jost', sans-serif", fontSize: '9px', letterSpacing: isAr ? 0 : '0.18em', textTransform: isAr ? 'none' : 'uppercase', color: '#c4a355', display: 'block', marginBottom: '16px' }}>{m.sub}</span>
                   <p style={{ ...PAGE.body, fontSize: '12px', margin: 0 }}>{m.d}</p>
                 </div>
               </FadeUp>

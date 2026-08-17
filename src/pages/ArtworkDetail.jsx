@@ -93,7 +93,7 @@ function ArtworkDetailPage({ navigate, params = {}, addToCart, tweaks = {}, lang
   };
 
   const C = { container: { maxWidth: '1360px', margin: '0 auto', padding: '0 clamp(20px,4vw,72px)' } };
-  const bodyFont = isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif";
+  const bodyFont = isAr ? "'IBM Plex Sans Arabic', sans-serif" : "'Jost', sans-serif";
 
   return (
     <div style={{ background: tweaks.bg || '#1b1916', color: '#f0ead8', paddingTop: '108px' }}>
@@ -110,13 +110,13 @@ function ArtworkDetailPage({ navigate, params = {}, addToCart, tweaks = {}, lang
       </div>
 
       <section style={{ ...C.container, padding: 'clamp(32px,5vw,64px) clamp(20px,4vw,72px)' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 'clamp(40px,6vw,96px)', alignItems: 'start' }}>
+        <div className="detail-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 'clamp(40px,6vw,96px)', alignItems: 'start' }}>
 
           {/* Image */}
           <FadeUp>
-            <div style={{ position: 'sticky', top: '130px' }}>
+            <div className="detail-sticky" style={{ position: 'sticky', top: '130px' }}>
               <div style={{
-                aspectRatio: artwork.landscape ? '4/3' : '4/5', overflow: 'hidden', background: '#242018',
+                aspectRatio: artwork.aspectRatio || (artwork.landscape ? '4/3' : '4/5'), overflow: 'hidden', background: artwork.fit === 'contain' ? '#fff' : '#242018',
                 boxShadow: isRare ? '0 0 0 1px rgba(196,163,85,0.2), 0 24px 64px rgba(0,0,0,0.4)' : '0 24px 64px rgba(0,0,0,0.3)',
                 position: 'relative',
               }}>
@@ -345,7 +345,7 @@ function ArtworkDetailPage({ navigate, params = {}, addToCart, tweaks = {}, lang
         <section style={{ ...C.container, paddingBottom: 'clamp(72px,9vw,120px)' }}>
           <div style={{ height: '1px', background: 'rgba(240,234,216,0.07)', marginBottom: 'clamp(40px,5vw,64px)' }} />
           <FadeUp>
-            <p style={{ fontFamily: isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif", fontSize: '10px', letterSpacing: isAr ? 0 : '0.22em', textTransform: isAr ? 'none' : 'uppercase', color: 'rgba(240,234,216,0.5)', marginBottom: '32px' }}>
+            <p style={{ fontFamily: isAr ? "'IBM Plex Sans Arabic', sans-serif" : "'Jost', sans-serif", fontSize: '10px', letterSpacing: isAr ? 0 : '0.22em', textTransform: isAr ? 'none' : 'uppercase', color: 'rgba(240,234,216,0.5)', marginBottom: '32px' }}>
               {isAr ? `المزيد من أعمال ${artwork.artist}` : `More by ${artwork.artist}`}
             </p>
           </FadeUp>

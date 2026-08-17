@@ -37,8 +37,8 @@ function ContactPage({ navigate, tweaks = {}, lang = 'EN' }) {
   const content = c[lang] || c.EN;
   const f = content.fields;
 
-  const inputStyle = { width: '100%', background: 'rgba(240,234,216,0.04)', border: 'none', borderBottom: '1px solid rgba(240,234,216,0.15)', color: '#f0ead8', fontFamily: isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif", fontSize: '13px', padding: '12px 4px', outline: 'none', boxSizing: 'border-box' };
-  const lbl = { fontFamily: isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif", fontSize: '10px', letterSpacing: isAr ? 0 : '0.16em', textTransform: isAr ? 'none' : 'uppercase', color: 'rgba(240,234,216,0.4)', display: 'block', marginBottom: '8px' };
+  const inputStyle = { width: '100%', background: 'rgba(240,234,216,0.04)', border: 'none', borderBottom: '1px solid rgba(240,234,216,0.15)', color: '#f0ead8', fontFamily: isAr ? "'IBM Plex Sans Arabic', sans-serif" : "'Jost', sans-serif", fontSize: '13px', padding: '12px 4px', outline: 'none', boxSizing: 'border-box' };
+  const lbl = { fontFamily: isAr ? "'IBM Plex Sans Arabic', sans-serif" : "'Jost', sans-serif", fontSize: '10px', letterSpacing: isAr ? 0 : '0.16em', textTransform: isAr ? 'none' : 'uppercase', color: 'rgba(240,234,216,0.4)', display: 'block', marginBottom: '8px' };
 
   return (
     <div style={PAGE.wrap(tweaks.bg)}>
@@ -61,7 +61,7 @@ function ContactPage({ navigate, tweaks = {}, lang = 'EN' }) {
                   <div>
                     <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '18px', color: '#f0ead8', margin: '0 0 4px' }}>{card.title}</p>
                     <p style={{ ...PAGE.body, fontSize: '12px', margin: '0 0 4px' }}>{card.sub}</p>
-                    <p style={{ fontFamily: isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif", fontSize: '12px', color: 'rgba(240,234,216,0.6)' }}>{card.detail}</p>
+                    <p style={{ fontFamily: isAr ? "'IBM Plex Sans Arabic', sans-serif" : "'Jost', sans-serif", fontSize: '12px', color: 'rgba(240,234,216,0.6)' }}>{card.detail}</p>
                   </div>
                 </a>
               ))}
@@ -73,7 +73,7 @@ function ContactPage({ navigate, tweaks = {}, lang = 'EN' }) {
               <p style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: 'italic', fontSize: '22px', color: '#c4a355', padding: '32px 0' }}>{f.thanks}</p>
             ) : (
               <form onSubmit={e => { e.preventDefault(); setSent(true); }} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+                <div className="form-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
                   <div><label style={lbl}>{f.first}</label><input required style={inputStyle} value={form.firstName} onChange={set('firstName')} /></div>
                   <div><label style={lbl}>{f.last}</label><input required style={inputStyle} value={form.lastName} onChange={set('lastName')} /></div>
                 </div>

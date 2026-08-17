@@ -4,10 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Olive Studios — Fine Art Editions</title>
-  <meta name="description" content="Museum-grade limited edition prints by Egypt's finest photographers." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Cairo:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
   <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
@@ -25,14 +24,25 @@
       overflow-x: hidden;
     }
 
-    /* Arabic font overrides — Amiri mirrors Cormorant Garamond, Cairo mirrors Jost */
-    [dir="rtl"] { font-family: 'Cairo', sans-serif; }
-    [dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3, [dir="rtl"] em { font-family: 'Amiri', serif !important; letter-spacing: 0 !important; }
-    [dir="rtl"] p, [dir="rtl"] span, [dir="rtl"] button, [dir="rtl"] a, [dir="rtl"] input, [dir="rtl"] textarea, [dir="rtl"] select { font-family: 'Cairo', sans-serif !important; letter-spacing: 0 !important; }
-    /* Amiri renders optically larger than Cormorant — scale down to match */
-    [dir="rtl"] h1 { font-size: calc(1em * 0.78) !important; line-height: 1.15 !important; }
-    [dir="rtl"] h2 { font-size: calc(1em * 0.82) !important; }
-    [dir="rtl"] h3 { font-size: calc(1em * 0.85) !important; }
+    /* Arabic typography — Noto Naskh Arabic mirrors Cormorant Garamond, IBM Plex Sans Arabic mirrors Jost.
+       Arabic glyphs sit optically smaller than Latin at the same px size, so sizes are normalised up
+       via font-size-adjust rather than scaled down. */
+    [dir="rtl"] { font-family: 'IBM Plex Sans Arabic', sans-serif; }
+    [dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3, [dir="rtl"] h4, [dir="rtl"] em { font-family: 'Noto Naskh Arabic', serif !important; letter-spacing: 0 !important; font-style: normal !important; }
+    [dir="rtl"] p, [dir="rtl"] span, [dir="rtl"] button, [dir="rtl"] a, [dir="rtl"] li, [dir="rtl"] label, [dir="rtl"] input, [dir="rtl"] textarea, [dir="rtl"] select { font-family: 'IBM Plex Sans Arabic', sans-serif !important; letter-spacing: 0 !important; }
+    /* headings own their descendants — must come after the sans rule to win */
+    [dir="rtl"] h1 span, [dir="rtl"] h2 span, [dir="rtl"] h3 span, [dir="rtl"] h4 span, [dir="rtl"] h1 em, [dir="rtl"] h2 em, [dir="rtl"] h3 em, [dir="rtl"] h1 a, [dir="rtl"] h2 a { font-family: 'Noto Naskh Arabic', serif !important; }
+    [dir="rtl"] body, [dir="rtl"] p, [dir="rtl"] span, [dir="rtl"] button, [dir="rtl"] a, [dir="rtl"] li, [dir="rtl"] label, [dir="rtl"] input, [dir="rtl"] textarea, [dir="rtl"] select { font-size-adjust: 0.62; }
+    [dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3, [dir="rtl"] h4 { font-size-adjust: 0.56; line-height: 1.24 !important; }
+    [dir="rtl"] h1 { line-height: 1.18 !important; }
+    /* Arabic has no true italic — stop the browser synthesising an oblique */
+    [dir="rtl"] * { font-style: normal !important; }
+    /* the hero headline runs longer in Arabic; hold it to the same block height */
+    [dir="rtl"] .hero h1 { font-size: clamp(32px, 5vw, 64px) !important; }
+    /* Arabic needs more leading, and a floor under the smallest labels — dots and
+       diacritics disappear below ~12px, so kickers/badges get raised in RTL only */
+    [dir="rtl"] p { line-height: 1.95; }
+    [dir="rtl"] [style*="font-size: 8px"], [dir="rtl"] [style*="font-size: 9px"], [dir="rtl"] [style*="font-size: 10px"], [dir="rtl"] [style*="font-size: 10.5px"], [dir="rtl"] [style*="font-size: 11px"] { font-size: 12px !important; }
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: #1b1916; }
     ::-webkit-scrollbar-thumb { background: rgba(196,163,85,0.3); border-radius: 3px; }
@@ -74,6 +84,43 @@
       .concierge-fab { padding: 10px !important; }
     }
 
+    /* ── MOBILE ──────────────────────────────────────────── */
+    img, video, svg { max-width: 100%; }
+    button, a, input, select, textarea { -webkit-tap-highlight-color: rgba(196,163,85,0.18); }
+
+    @media (max-width: 900px) {
+      header img[alt="Olive Studios"] { height: 38px !important; }
+      .mobile-menu-btn, header button { min-height: 34px; }
+    }
+
+    @media (max-width: 860px) {
+      .cart-grid { grid-template-columns: 1fr !important; }
+      .detail-sticky { position: static !important; }
+    }
+
+    @media (max-width: 760px) {
+      .form-2col { grid-template-columns: 1fr !important; }
+      .featured-grid { grid-template-columns: 1fr !important; }
+      .ig-grid { grid-template-columns: 1fr 1fr !important; }
+      .std-thumbs { grid-template-columns: 1fr 1fr !important; }
+      .trust-bar > * > div { border-right: none !important; border-bottom: 1px solid rgba(240,234,216,0.07); }
+      .trust-bar > *:last-child > div { border-bottom: none !important; }
+      /* comfortable touch targets */
+      main button, main a[href], .concierge-fab { min-height: 44px; }
+      main button, main a[href] { touch-action: manipulation; }
+      /* inputs at 16px so iOS doesn't zoom on focus */
+      input, textarea, select { font-size: 16px !important; }
+      .concierge-fab { bottom: 16px !important; right: 16px !important; }
+      .filter-bar { scrollbar-width: none; }
+      .filter-bar::-webkit-scrollbar { display: none; }
+      .footer-logo { height: 74px !important; }
+    }
+
+    @media (max-width: 480px) {
+      .std-items { grid-template-columns: 1fr !important; }
+      .hero-actions button { width: 100%; }
+    }
+
     #tweaks-panel {
       position: fixed; bottom: 24px; right: 24px; z-index: 500;
       background: #1e1c18; border: 1px solid rgba(240,234,216,0.12);
@@ -97,34 +144,34 @@
 <body>
   <div id="root"></div>
 
-  <script src="src/data.js?v=6"></script>
-  <script src="src/translations.js?v=6"></script>
-  <script type="text/babel" src="src/pages/PageHelpers.jsx?v=6"></script>
-  <script type="text/babel" src="src/components/ProductCard.jsx?v=6"></script>
-  <script type="text/babel" src="src/components/Footer.jsx?v=6"></script>
-  <script type="text/babel" src="src/components/Header.jsx?v=6"></script>
-  <script type="text/babel" src="src/components/CartDrawer.jsx?v=6"></script>
-  <script type="text/babel" src="src/pages/Home.jsx?v=6"></script>
-  <script type="text/babel" src="src/pages/Collection.jsx?v=6"></script>
-  <script type="text/babel" src="src/pages/About.jsx?v=6"></script>
-  <script type="text/babel" src="src/pages/Artists.jsx?v=6"></script>
-  <script type="text/babel" src="src/pages/ArtworkDetail.jsx?v=6"></script>
-  <script type="text/babel" src="src/pages/Contact.jsx?v=6"></script>
-  <script type="text/babel" src="src/pages/FAQ.jsx?v=6"></script>
-  <script type="text/babel" src="src/pages/Bespoke.jsx?v=6"></script>
-  <script type="text/babel" src="src/pages/Corporate.jsx?v=6"></script>
-  <script type="text/babel" src="src/pages/Collectors.jsx?v=6"></script>
-  <script type="text/babel" src="src/pages/PrintQuality.jsx?v=6"></script>
-  <script type="text/babel" src="src/pages/Shipping.jsx?v=6"></script>
-  <script type="text/babel" src="src/pages/Editions.jsx?v=6"></script>
-  <script type="text/babel" src="src/pages/Care.jsx?v=6"></script>
-  <script type="text/babel" src="src/pages/Privacy.jsx?v=6"></script>
-  <script type="text/babel" src="src/pages/Terms.jsx?v=6"></script>
-  <script type="text/babel" src="src/pages/Studio.jsx?v=6"></script>
-  <script type="text/babel" src="src/pages/Cart.jsx?v=6"></script>
-  <script type="text/babel" src="src/pages/Checkout.jsx?v=6"></script>
-  <script type="text/babel" src="src/pages/ThankYou.jsx?v=6"></script>
-  <script type="text/babel" src="src/pages/HowItWorks.jsx?v=6"></script>
+  <script src="src/data.js?v=2"></script>
+  <script src="src/translations.js?v=2"></script>
+  <script type="text/babel" src="src/pages/PageHelpers.jsx"></script>
+  <script type="text/babel" src="src/components/ProductCard.jsx"></script>
+  <script type="text/babel" src="src/components/Footer.jsx"></script>
+  <script type="text/babel" src="src/components/Header.jsx"></script>
+  <script type="text/babel" src="src/components/CartDrawer.jsx"></script>
+  <script type="text/babel" src="src/pages/Home.jsx"></script>
+  <script type="text/babel" src="src/pages/Collection.jsx"></script>
+  <script type="text/babel" src="src/pages/About.jsx"></script>
+  <script type="text/babel" src="src/pages/Artists.jsx"></script>
+  <script type="text/babel" src="src/pages/ArtworkDetail.jsx"></script>
+  <script type="text/babel" src="src/pages/Contact.jsx"></script>
+  <script type="text/babel" src="src/pages/FAQ.jsx"></script>
+  <script type="text/babel" src="src/pages/Bespoke.jsx"></script>
+  <script type="text/babel" src="src/pages/Corporate.jsx"></script>
+  <script type="text/babel" src="src/pages/Collectors.jsx"></script>
+  <script type="text/babel" src="src/pages/PrintQuality.jsx"></script>
+  <script type="text/babel" src="src/pages/Shipping.jsx"></script>
+  <script type="text/babel" src="src/pages/Editions.jsx"></script>
+  <script type="text/babel" src="src/pages/Care.jsx"></script>
+  <script type="text/babel" src="src/pages/Privacy.jsx"></script>
+  <script type="text/babel" src="src/pages/Terms.jsx"></script>
+  <script type="text/babel" src="src/pages/Studio.jsx"></script>
+  <script type="text/babel" src="src/pages/Cart.jsx"></script>
+  <script type="text/babel" src="src/pages/Checkout.jsx"></script>
+  <script type="text/babel" src="src/pages/ThankYou.jsx"></script>
+  <script type="text/babel" src="src/pages/HowItWorks.jsx"></script>
 
   <script type="text/babel">
     const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
@@ -133,7 +180,41 @@
       "headingFont": "Cormorant Garamond"
     }/*EDITMODE-END*/;
 
+    function Gate({ onUnlock }) {
+      const [val, setVal] = React.useState('');
+      const [err, setErr] = React.useState(false);
+      const submit = (e) => {
+        e.preventDefault();
+        if (val.trim().toLowerCase() === 'photoolive') { localStorage.setItem('olive_unlocked', '1'); onUnlock(); }
+        else { setErr(true); setVal(''); }
+      };
+      return (
+        <div style={{ minHeight: '100vh', background: '#1b1916', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '40px 24px', gap: '0' }}>
+          <img src={window.__resources&&window.__resources.oliveLogo||'src/assets/olive-logo.png'} alt="Olive Studios" style={{ height: '92px', width: 'auto', marginBottom: '44px', animation: 'fadeUp 1s cubic-bezier(0.25,0,0,1) both' }} />
+          <p style={{ fontFamily: "'Jost', sans-serif", fontSize: '11px', letterSpacing: '0.42em', textTransform: 'uppercase', color: 'rgba(196,163,85,0.85)', marginBottom: '54px', animation: 'fadeUp 1s 0.15s cubic-bezier(0.25,0,0,1) both' }}>Coming Soon</p>
+          <form onSubmit={submit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '18px', width: '100%', maxWidth: '280px', animation: 'fadeUp 1s 0.3s cubic-bezier(0.25,0,0,1) both' }}>
+            <input
+              type="password"
+              value={val}
+              autoFocus
+              onChange={e => { setVal(e.target.value); setErr(false); }}
+              placeholder="Password"
+              aria-label="Password"
+              style={{ width: '100%', background: 'transparent', border: 'none', borderBottom: `1px solid ${err ? 'rgba(190,90,70,0.8)' : 'rgba(240,234,216,0.22)'}`, color: '#f0ead8', fontFamily: "'Jost', sans-serif", fontWeight: 300, fontSize: '15px', letterSpacing: '0.14em', textAlign: 'center', padding: '10px 4px 12px', outline: 'none', transition: 'border-color 0.3s ease' }}
+              onFocus={e => { if (!err) e.currentTarget.style.borderBottomColor = 'rgba(196,163,85,0.6)'; }}
+              onBlur={e => { if (!err) e.currentTarget.style.borderBottomColor = 'rgba(240,234,216,0.22)'; }}
+            />
+            <button type="submit" style={{ background: 'transparent', border: '1px solid rgba(196,163,85,0.45)', color: '#f0ead8', fontFamily: "'Jost', sans-serif", fontWeight: 300, fontSize: '10.5px', letterSpacing: '0.24em', textTransform: 'uppercase', padding: '13px 30px', minHeight: '44px', cursor: 'pointer', transition: 'background 0.3s ease, border-color 0.3s ease' }}
+              onMouseEnter={e => { e.currentTarget.style.background = 'rgba(196,163,85,0.12)'; e.currentTarget.style.borderColor = 'rgba(196,163,85,0.8)'; }}
+              onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderColor = 'rgba(196,163,85,0.45)'; }}>Enter</button>
+            <span style={{ fontFamily: "'Jost', sans-serif", fontSize: '10px', letterSpacing: '0.16em', textTransform: 'uppercase', color: err ? 'rgba(190,110,90,0.9)' : 'transparent', minHeight: '14px' }}>Incorrect password</span>
+          </form>
+        </div>
+      );
+    }
+
     function App() {
+      const [unlocked, setUnlocked] = React.useState(() => localStorage.getItem('olive_unlocked') === '1');
       const [page, setPage] = React.useState(() => localStorage.getItem('olive_page') || 'home');
       const [params, setParams] = React.useState(() => { try { return JSON.parse(localStorage.getItem('olive_params') || '{}'); } catch { return {}; } });
       const [cart, setCart] = React.useState(() => { try { return JSON.parse(localStorage.getItem('olive_cart') || '[]'); } catch { return []; } });
@@ -199,6 +280,8 @@
       React.useEffect(() => { localStorage.setItem('olive_cart', JSON.stringify(cart)); }, [cart]);
       React.useEffect(() => { localStorage.setItem('olive_region', region); }, [region]);
       React.useEffect(() => { localStorage.setItem('olive_currency', currency); }, [currency]);
+
+      if (!unlocked) return <Gate onUnlock={() => setUnlocked(true)} />;
 
       const pageProps = { navigate, addToCart, tweaks: { bg: tweaks.bgColor }, lang, currency };
 

@@ -15,7 +15,7 @@ function HomePage({ navigate, addToCart, tweaks = {}, lang = 'EN', currency = 'E
     <div style={{ background: tweaks.bg || '#1b1916', color: '#f0ead8' }}>
 
       {/* ── HERO ── */}
-      <section style={{ position: 'relative', height: '100vh', minHeight: '600px', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', background: '#0f0d0a' }}>
+      <section className="hero" style={{ position: 'relative', height: '100svh', minHeight: '560px', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', background: '#0f0d0a' }}>
         {reducedMotion ? (
           <img
             src={(window.__resources&&window.__resources.heroCairo)||'src/assets/hero-cairo.jpg'}
@@ -51,7 +51,7 @@ function HomePage({ navigate, addToCart, tweaks = {}, lang = 'EN', currency = 'E
           <p style={{ fontFamily: "'Jost', sans-serif", fontSize: 'clamp(13px,1.5vw,16px)', color: 'rgba(240,234,216,0.55)', lineHeight: 1.75, marginBottom: '44px', animation: 'fadeUp 1s 0.65s both', fontWeight: 300 }}>
             {t('hero.subtitle')}
           </p>
-          <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap', animation: 'fadeUp 1s 0.8s both' }}>
+          <div className="hero-actions" style={{ display: 'flex', gap: '14px', justifyContent: 'center', flexWrap: 'wrap', animation: 'fadeUp 1s 0.8s both' }}>
             <button onClick={() => navigate('collection')} style={{ background: '#c4a355', color: '#1b1916', border: 'none', cursor: 'pointer', padding: '14px 36px', fontFamily: "'Jost', sans-serif", fontSize: '11px', letterSpacing: '0.18em', textTransform: 'uppercase', fontWeight: 600 }}>
               {t('hero.cta.browse')}
             </button>
@@ -69,7 +69,7 @@ function HomePage({ navigate, addToCart, tweaks = {}, lang = 'EN', currency = 'E
       {/* ── TRUST BAR ── */}
       <section style={{ background: '#151310', borderBottom: '1px solid rgba(240,234,216,0.07)' }}>
         <div style={C.container}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))' }}>
+          <div className="trust-bar" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))' }}>
             {[
               { title: t('trust.museum.title'), sub: t('trust.museum.sub') },
               { title: t('trust.edition.title'), sub: t('trust.edition.sub') },
@@ -96,7 +96,7 @@ function HomePage({ navigate, addToCart, tweaks = {}, lang = 'EN', currency = 'E
               <p style={{ fontFamily: "'Jost', sans-serif", fontSize: '14px', color: 'rgba(240,234,216,0.58)', maxWidth: '500px', margin: '0 auto', lineHeight: 1.75 }}>{t('collection.desc')}</p>
             </div>
           </FadeUp>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: 'clamp(28px,3vw,48px)' }}>
+          <div className="featured-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: 'clamp(28px,3vw,48px)' }}>
             {featured.map((artwork, i) => (
               <FadeUp key={artwork.id} delay={Math.min(i * 0.07, 0.4)}>
                 <ProductCard artwork={artwork} onNavigate={navigate} lang={lang} currency={currency} />
@@ -122,7 +122,7 @@ function HomePage({ navigate, addToCart, tweaks = {}, lang = 'EN', currency = 'E
                   {t('standard.title')}
                 </h2>
                 <p style={{ fontFamily: "'Jost', sans-serif", fontSize: '14px', color: 'rgba(240,234,216,0.8)', lineHeight: 1.85, marginBottom: '32px', fontWeight: 300 }}>{t('standard.desc')}</p>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px 24px' }}>
+                <div className="std-items" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px 24px' }}>
                   {t('standard.items').map(item => (
                     <div key={item} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                       <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#c4a355', flexShrink: 0 }} />
@@ -136,7 +136,7 @@ function HomePage({ navigate, addToCart, tweaks = {}, lang = 'EN', currency = 'E
               </div>
             </FadeUp>
             <FadeUp delay={0.15}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+              <div className="std-thumbs" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
                 {window.ARTWORKS.slice(0, 4).map(a => (
                   <div key={a.id} style={{ aspectRatio: '1', overflow: 'hidden', cursor: 'pointer' }} onClick={() => navigate('artwork', { id: a.id })}>
                     <img src={a.image} alt={isAr ? a.titleAr : a.title} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.6s ease' }}
@@ -176,6 +176,7 @@ function HomePage({ navigate, addToCart, tweaks = {}, lang = 'EN', currency = 'E
             }
             .artists-marquee:hover .artists-track { animation-play-state: paused; }
             .artist-card { flex: 0 0 clamp(320px, 32vw, 420px); cursor: pointer; }
+            @media (max-width: 760px) { .artist-card { flex: 0 0 76vw; } .artists-track { animation-duration: 90s; } }
           `}</style>
 
           <div className="artists-track">
@@ -258,7 +259,7 @@ function HomePage({ navigate, addToCart, tweaks = {}, lang = 'EN', currency = 'E
               <a href="https://www.instagram.com/_olivestudios/" target="_blank" rel="noopener noreferrer" style={{ fontFamily: "'Jost', sans-serif", fontSize: '12px', color: 'rgba(240,234,216,0.35)', textDecoration: 'none', letterSpacing: '0.1em' }}>@_olivestudios</a>
             </div>
           </FadeUp>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '8px' }}>
+          <div className="ig-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '8px' }}>
             {window.ARTWORKS.slice(0, 4).map((a, i) => (
               <FadeUp key={a.id} delay={i * 0.08}>
                 <a href="https://www.instagram.com/_olivestudios/" target="_blank" rel="noopener noreferrer" style={{ display: 'block', aspectRatio: '1', overflow: 'hidden' }}>
@@ -307,6 +308,7 @@ function PinterestWall({ navigate, lang, isAr, t, currency = 'EGP' }) {
           @media (max-width: 1100px) { .pinterest-wall { column-count: 3; } }
           @media (max-width: 720px)  { .pinterest-wall { column-count: 2; } }
           @media (max-width: 420px)  { .pinterest-wall { column-count: 2; } }
+          @media (hover: none) { .pw-overlay { opacity: 1 !important; background: linear-gradient(180deg, transparent 42%, rgba(20,18,14,0.9) 100%) !important; } }
           .pw-card { break-inside: avoid; -webkit-column-break-inside: avoid; page-break-inside: avoid; border-radius: 14px; overflow: hidden; }
         `}</style>
 
@@ -382,7 +384,7 @@ function PinterestCard({ artwork, onNavigate, lang, currency = 'EGP', delay }) {
       )}
 
       {/* Hover overlay — title + price + view */}
-      <div style={{
+      <div className="pw-overlay" style={{
         position: 'absolute', inset: 0,
         background: 'linear-gradient(180deg, transparent 30%, rgba(20,18,14,0.85) 100%)',
         opacity: hovered ? 1 : 0,

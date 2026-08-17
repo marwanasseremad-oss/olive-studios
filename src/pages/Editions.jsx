@@ -1,7 +1,7 @@
 
 function EditionsPage({ navigate, tweaks = {}, lang = 'EN' }) {
   const isAr = lang === 'AR';
-  const bodyFont = isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif";
+  const bodyFont = isAr ? "'IBM Plex Sans Arabic', sans-serif" : "'Jost', sans-serif";
 
   const enContent = {
     label: 'Edition Policy',

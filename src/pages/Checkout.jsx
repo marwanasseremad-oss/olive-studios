@@ -1,7 +1,7 @@
 
 function CheckoutPage({ navigate, cart = [], region = 'egypt', setRegion, placeOrder, lang = 'EN', currency = 'EGP' }) {
   const isAr = lang === 'AR';
-  const bodyFont = isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif";
+  const bodyFont = isAr ? "'IBM Plex Sans Arabic', sans-serif" : "'Jost', sans-serif";
   const gold = '#c4a355';
 
   React.useEffect(() => { window.scrollTo({ top: 0 }); if (!cart.length) navigate('cart'); }, []);
@@ -108,7 +108,7 @@ function CheckoutPage({ navigate, cart = [], region = 'egypt', setRegion, placeO
             {/* Contact & delivery */}
             <section>
               <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: '24px', margin: '0 0 20px' }}>{isAr ? '١ · التوصيل' : '1 · Delivery Details'}</h2>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+              <div className="form-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                 {field('name', isAr ? 'الاسم الكامل' : 'Full name', 'text', true)}
                 {field('email', isAr ? 'البريد الإلكتروني' : 'Email', 'email')}
                 {field('phone', isAr ? 'رقم الهاتف' : 'Phone', 'tel')}

@@ -42,7 +42,7 @@ function CollectionPage({ navigate, tweaks = {}, lang = 'EN', params = {}, curre
       {/* Page header */}
       <div style={{ ...C.container, padding: 'clamp(48px,7vw,96px) clamp(20px,4vw,72px) clamp(24px,3vw,40px)' }}>
         <FadeUp>
-          <p style={{ fontFamily: isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif", fontSize: '10px', letterSpacing: isAr ? 0 : '0.22em', textTransform: isAr ? 'none' : 'uppercase', color: 'rgba(196,163,85,0.8)', marginBottom: '8px' }}>
+          <p style={{ fontFamily: isAr ? "'IBM Plex Sans Arabic', sans-serif" : "'Jost', sans-serif", fontSize: '10px', letterSpacing: isAr ? 0 : '0.22em', textTransform: isAr ? 'none' : 'uppercase', color: 'rgba(196,163,85,0.8)', marginBottom: '8px' }}>
             {window.COLLECTION_NAME}
           </p>
           <p style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: 'italic', fontSize: 'clamp(18px,2vw,24px)', color: 'rgba(240,234,216,0.55)', marginBottom: '16px' }}>
@@ -51,7 +51,7 @@ function CollectionPage({ navigate, tweaks = {}, lang = 'EN', params = {}, curre
           <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(36px,5.5vw,72px)', fontWeight: 300, margin: '0 0 16px' }}>
             {isAr ? 'المجموعة' : 'The Collection'}
           </h1>
-          <p style={{ fontFamily: isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif", fontSize: '14px', color: 'rgba(240,234,216,0.58)', maxWidth: '520px', lineHeight: 1.8, margin: 0, fontWeight: 300 }}>
+          <p style={{ fontFamily: isAr ? "'IBM Plex Sans Arabic', sans-serif" : "'Jost', sans-serif", fontSize: '14px', color: 'rgba(240,234,216,0.58)', maxWidth: '520px', lineHeight: 1.8, margin: 0, fontWeight: 300 }}>
             {isAr
               ? '١٠ أعمال. ٥ مصورين مصريين. إصدارات ثابتة — حين تنتهي، لن تُعاد.'
               : '10 works. 5 Egyptian photographers. Fixed editions — when they\'re gone, they\'re gone.'}
@@ -61,11 +61,11 @@ function CollectionPage({ navigate, tweaks = {}, lang = 'EN', params = {}, curre
 
       {/* Filter bar */}
       <div style={{ ...C.container, paddingBottom: 'clamp(24px,3vw,40px)' }}>
-        <div style={{ display: 'flex', borderBottom: '1px solid rgba(240,234,216,0.08)', overflowX: 'auto', gap: 0 }}>
+        <div className="filter-bar" style={{ display: 'flex', borderBottom: '1px solid rgba(240,234,216,0.08)', overflowX: 'auto', gap: 0 }}>
           {categories.map(cat => (
             <button key={cat} onClick={() => setFilter(cat)} style={{
               background: 'none', border: 'none', cursor: 'pointer',
-              fontFamily: isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif",
+              fontFamily: isAr ? "'IBM Plex Sans Arabic', sans-serif" : "'Jost', sans-serif",
               fontSize: '11px', letterSpacing: isAr ? 0 : '0.12em',
               textTransform: isAr ? 'none' : 'uppercase',
               color: filter === cat
@@ -82,7 +82,7 @@ function CollectionPage({ navigate, tweaks = {}, lang = 'EN', params = {}, curre
             </button>
           ))}
           <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', paddingRight: '4px', flexShrink: 0 }}>
-            <span style={{ fontFamily: isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif", fontSize: '11px', color: 'rgba(240,234,216,0.45)' }}>
+            <span style={{ fontFamily: isAr ? "'IBM Plex Sans Arabic', sans-serif" : "'Jost', sans-serif", fontSize: '11px', color: 'rgba(240,234,216,0.45)' }}>
               {filtered.length} {isAr ? 'عمل' : 'works'}
             </span>
           </div>
@@ -96,7 +96,7 @@ function CollectionPage({ navigate, tweaks = {}, lang = 'EN', params = {}, curre
             <FadeUp>
               <div style={{ display: 'flex', alignItems: 'baseline', gap: '16px', marginBottom: 'clamp(28px,3vw,48px)' }}>
                 <span style={{ color: '#c4a355', fontSize: '10px' }}>◆◆</span>
-                <p style={{ fontFamily: isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif", fontSize: '10px', letterSpacing: isAr ? 0 : '0.22em', textTransform: isAr ? 'none' : 'uppercase', color: '#c4a355', margin: 0 }}>
+                <p style={{ fontFamily: isAr ? "'IBM Plex Sans Arabic', sans-serif" : "'Jost', sans-serif", fontSize: '10px', letterSpacing: isAr ? 0 : '0.22em', textTransform: isAr ? 'none' : 'uppercase', color: '#c4a355', margin: 0 }}>
                   {isAr ? 'الإصدارات النادرة — إصدار ٥ نسخ فقط لكل حجم' : 'Rare Editions — 5 copies per size'}
                 </p>
               </div>
@@ -116,7 +116,7 @@ function CollectionPage({ navigate, tweaks = {}, lang = 'EN', params = {}, curre
       <div style={{ ...C.container, paddingBottom: 'clamp(72px,9vw,120px)' }}>
         {showRareSection && (
           <FadeUp>
-            <p style={{ fontFamily: isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif", fontSize: '10px', letterSpacing: isAr ? 0 : '0.22em', textTransform: isAr ? 'none' : 'uppercase', color: 'rgba(240,234,216,0.3)', marginBottom: 'clamp(24px,3vw,40px)' }}>
+            <p style={{ fontFamily: isAr ? "'IBM Plex Sans Arabic', sans-serif" : "'Jost', sans-serif", fontSize: '10px', letterSpacing: isAr ? 0 : '0.22em', textTransform: isAr ? 'none' : 'uppercase', color: 'rgba(240,234,216,0.3)', marginBottom: 'clamp(24px,3vw,40px)' }}>
               {isAr ? 'الإصدار القياسي — ١٠ نسخ لكل حجم' : 'Standard Edition — 10 copies per size'}
             </p>
           </FadeUp>
@@ -133,18 +133,18 @@ function CollectionPage({ navigate, tweaks = {}, lang = 'EN', params = {}, curre
       {/* About editions CTA */}
       <div style={{ background: '#131210', borderTop: '1px solid rgba(240,234,216,0.07)', padding: 'clamp(48px,7vw,80px) 0', textAlign: 'center' }}>
         <FadeUp>
-          <p style={{ fontFamily: isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif", fontSize: '10px', letterSpacing: isAr ? 0 : '0.22em', textTransform: isAr ? 'none' : 'uppercase', color: 'rgba(196,163,85,0.8)', marginBottom: '20px' }}>
+          <p style={{ fontFamily: isAr ? "'IBM Plex Sans Arabic', sans-serif" : "'Jost', sans-serif", fontSize: '10px', letterSpacing: isAr ? 0 : '0.22em', textTransform: isAr ? 'none' : 'uppercase', color: 'rgba(196,163,85,0.8)', marginBottom: '20px' }}>
             {isAr ? 'سياسة الإصدارات' : 'Edition Policy'}
           </p>
           <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(22px,3vw,36px)', fontWeight: 300, margin: '0 0 16px' }}>
             {isAr ? 'الندرة حقيقية، لا تسويقية.' : 'Scarcity is real, not marketed.'}
           </h2>
-          <p style={{ fontFamily: isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif", fontSize: '13px', color: 'rgba(240,234,216,0.56)', margin: '0 auto 32px', lineHeight: 1.8, maxWidth: '480px', fontWeight: 300 }}>
+          <p style={{ fontFamily: isAr ? "'IBM Plex Sans Arabic', sans-serif" : "'Jost', sans-serif", fontSize: '13px', color: 'rgba(240,234,216,0.56)', margin: '0 auto 32px', lineHeight: 1.8, maxWidth: '480px', fontWeight: 300 }}>
             {isAr
               ? 'حين يُباع آخر إصدار من أي عمل، لن يُطبع مرة أخرى. أبداً.'
               : 'When the last copy of any work sells, it will never be printed again. Ever.'}
           </p>
-          <button onClick={() => navigate('editions')} style={{ background: 'transparent', color: '#c4a355', border: '1px solid rgba(196,163,85,0.4)', cursor: 'pointer', padding: '12px 32px', fontFamily: isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif", fontSize: '11px', letterSpacing: isAr ? 0 : '0.15em', textTransform: isAr ? 'none' : 'uppercase' }}>
+          <button onClick={() => navigate('editions')} style={{ background: 'transparent', color: '#c4a355', border: '1px solid rgba(196,163,85,0.4)', cursor: 'pointer', padding: '12px 32px', fontFamily: isAr ? "'IBM Plex Sans Arabic', sans-serif" : "'Jost', sans-serif", fontSize: '11px', letterSpacing: isAr ? 0 : '0.15em', textTransform: isAr ? 'none' : 'uppercase' }}>
             {isAr ? 'سياستنا الكاملة' : 'Our Edition Policy'}
           </button>
         </FadeUp>

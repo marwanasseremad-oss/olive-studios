@@ -1,7 +1,7 @@
 
 function CartPage({ navigate, cart = [], updateCartItem, removeFromCart, lang = 'EN', region = 'egypt', setRegion, currency = 'EGP' }) {
   const isAr = lang === 'AR';
-  const bodyFont = isAr ? "'Cairo', sans-serif" : "'Jost', sans-serif";
+  const bodyFont = isAr ? "'IBM Plex Sans Arabic', sans-serif" : "'Jost', sans-serif";
   const gold = '#c4a355';
 
   React.useEffect(() => { window.scrollTo({ top: 0 }); }, []);
